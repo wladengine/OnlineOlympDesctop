@@ -1,0 +1,805 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OnlineOlymp2016Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="NameEng" Type="nvarchar" MaxLength="100" />
+          <Property Name="RegionId" Type="int" />
+          <Property Name="LevelOfUsing" Type="int" />
+          <Property Name="IsRussia" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocumentType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NameEng" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FileType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="NameEng" Type="nvarchar" MaxLength="150" />
+          <Property Name="IsForParticipant" Type="bit" Nullable="false" />
+          <Property Name="IsForPerson" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="150" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="150" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="SexId" Type="int" />
+          <Property Name="PlaceOfBirth" Type="nvarchar" MaxLength="1500" />
+          <Property Name="ClassId" Type="int" />
+          <Property Name="City" Type="nvarchar" MaxLength="150" />
+          <Property Name="Address" Type="nvarchar" MaxLength="2500" />
+          <Property Name="NationalityId" Type="int" />
+          <Property Name="RegionId" Type="int" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="DocumentTypeId" Type="int" />
+          <Property Name="DocumentSeries" Type="nvarchar" MaxLength="50" />
+          <Property Name="DocumentNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="DocumentDate" Type="date" />
+          <Property Name="DocumentAuthor" Type="nvarchar" MaxLength="2500" />
+          <Property Name="DocumentValid" Type="datetime" />
+          <Property Name="ArrivalDate" Type="datetime" />
+          <Property Name="ArrivalNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ArrivalPlaceId" Type="int" />
+          <Property Name="DepatureDate" Type="datetime" />
+          <Property Name="DepaturePlaceId" Type="int" />
+          <Property Name="DepatureNumber" Type="nvarchar" MaxLength="150" />
+          <Property Name="AdditionalComments" Type="nvarchar(max)" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="150" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="150" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="SexId" Type="int" />
+          <Property Name="PlaceOfBirth" Type="nvarchar" MaxLength="1500" />
+          <Property Name="NationalityId" Type="int" />
+          <Property Name="RegionId" Type="int" />
+          <Property Name="Address" Type="nvarchar" MaxLength="2500" />
+          <Property Name="Post" Type="nvarchar" MaxLength="150" />
+          <Property Name="PassportTypeId" Type="int" />
+          <Property Name="PassportSeries" Type="nvarchar" MaxLength="50" />
+          <Property Name="PassportNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PassportDate" Type="date" />
+          <Property Name="PassportAuthor" Type="nvarchar" MaxLength="2500" />
+          <Property Name="PassportValid" Type="datetime" />
+          <Property Name="ArrivalDate" Type="datetime" />
+          <Property Name="ArrivalNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ArrivalPlaceId" Type="int" />
+          <Property Name="DepatureDate" Type="datetime" />
+          <Property Name="DepaturePlaceId" Type="int" />
+          <Property Name="DepatureNumber" Type="nvarchar" MaxLength="150" />
+          <Property Name="AdditionalComments" Type="nvarchar(max)" />
+          <Property Name="HasErrors" Type="bit" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" />
+          <Property Name="ParticipantId" Type="uniqueidentifier" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FileSize" Type="int" Nullable="false" />
+          <Property Name="FileExtention" Type="nvarchar" MaxLength="50" />
+          <Property Name="FileData" Type="varbinary(max)" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LoadDate" Type="datetime" Nullable="false" />
+          <Property Name="MimeType" Type="nvarchar" MaxLength="150" />
+          <Property Name="FailReason" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="FileTypeId" Type="int" />
+          <Property Name="Approved" Type="bit" />
+        </EntityType>
+        <EntityType Name="PlaceList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="NameEng" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Distance" Type="int" />
+          <Property Name="RegionNumber" Type="int" />
+          <Property Name="RodName" Type="nvarchar" MaxLength="100" />
+          <Property Name="PriemDictionaryId" Type="int" Nullable="false" />
+          <Property Name="KladrCode" Type="nchar" MaxLength="13" />
+          <Property Name="RegionNumberStringValue" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="SchoolClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="NameEng" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="SID" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailTicket" Type="nvarchar" MaxLength="50" />
+          <Property Name="UILanguage" Type="nvarchar" MaxLength="20" />
+          <Property Name="RegDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Participant_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="NationalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_DocumentType">
+          <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="0..1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="DocumentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_SchoolClass">
+          <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="0..1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_Sex">
+          <End Role="Sex" Type="Self.Sex" Multiplicity="0..1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="SexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFile_FileType">
+          <End Role="FileType" Type="Self.FileType" Multiplicity="0..1" />
+          <End Role="PersonFile" Type="Self.PersonFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonFile">
+              <PropertyRef Name="FileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SchoolClass_SchoolClass">
+          <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="1" />
+          <End Role="SchoolClass1" Type="Self.SchoolClass" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SchoolClass1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnlineOlymp2016ModelStoreContainer">
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentType" EntityType="Self.DocumentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileType" EntityType="Self.FileType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Participant" EntityType="Self.Participant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonFile" EntityType="Self.PersonFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlaceList" EntityType="Self.PlaceList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolClass" EntityType="Self.SchoolClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Participant_Country" Association="Self.FK_Participant_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_DocumentType" Association="Self.FK_Participant_DocumentType">
+            <End Role="DocumentType" EntitySet="DocumentType" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_SchoolClass" Association="Self.FK_Participant_SchoolClass">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_Sex" Association="Self.FK_Participant_Sex">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFile_FileType" Association="Self.FK_PersonFile_FileType">
+            <End Role="FileType" EntitySet="FileType" />
+            <End Role="PersonFile" EntitySet="PersonFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SchoolClass_SchoolClass" Association="Self.FK_SchoolClass_SchoolClass">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="SchoolClass1" EntitySet="SchoolClass" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnlineOlymp2016Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NameEng" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RegionId" Type="Int32" />
+          <Property Name="LevelOfUsing" Type="Int32" />
+          <Property Name="IsRussia" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Person_Country" FromRole="Country" ToRole="Person" />
+          <NavigationProperty Name="Participant" Relationship="OnlineOlymp2016Model.FK_Participant_Country" FromRole="Country" ToRole="Participant" />
+        </EntityType>
+        <EntityType Name="DocumentType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NameEng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Participant" Relationship="OnlineOlymp2016Model.FK_Participant_DocumentType" FromRole="DocumentType" ToRole="Participant" />
+        </EntityType>
+        <EntityType Name="FileType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="NameEng" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsForParticipant" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PersonFile" Relationship="Self.FK_PersonFile_FileType" FromRole="FileType" ToRole="PersonFile" />
+          <Property Name="IsForPerson" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="PlaceOfBirth" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="NationalityId" Type="Int32" />
+          <Property Name="RegionId" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" />
+          <Property Name="Post" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PassportTypeId" Type="Int32" />
+          <Property Name="PassportSeries" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassportNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassportDate" Type="DateTime" Precision="0" />
+          <Property Name="PassportAuthor" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" />
+          <Property Name="PassportValid" Type="DateTime" Precision="3" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
+          <Property Name="ArrivalNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArrivalPlaceId" Type="Int32" />
+          <Property Name="DepatureDate" Type="DateTime" Precision="3" />
+          <Property Name="DepaturePlaceId" Type="Int32" />
+          <Property Name="DepatureNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionalComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HasErrors" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_Person_Country" FromRole="Person" ToRole="Country" />
+          <Property Name="SexId" Type="Int32" />
+          <NavigationProperty Name="Sex" Relationship="OnlineOlymp2016Model.FK_Person_Sex" FromRole="Person" ToRole="Sex" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" />
+          <Property Name="ParticipantId" Type="Guid" />
+          <Property Name="FileName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileSize" Type="Int32" Nullable="false" />
+          <Property Name="FileExtention" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileData" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MimeType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FailReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="FileTypeId" Type="Int32" />
+          <NavigationProperty Name="FileType" Relationship="Self.FK_PersonFile_FileType" FromRole="PersonFile" ToRole="FileType" />
+          <Property Name="Approved" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="PlaceList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="NameEng" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Distance" Type="Int32" />
+          <Property Name="RegionNumber" Type="Int32" />
+          <Property Name="RodName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PriemDictionaryId" Type="Int32" Nullable="false" />
+          <Property Name="KladrCode" Type="String" MaxLength="13" FixedLength="true" Unicode="true" />
+          <Property Name="RegionNumberStringValue" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SchoolClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NameEng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SchoolClass1" Relationship="Self.FK_SchoolClass_SchoolClass" FromRole="SchoolClass" ToRole="SchoolClass1" />
+          <NavigationProperty Name="SchoolClass2" Relationship="Self.FK_SchoolClass_SchoolClass" FromRole="SchoolClass1" ToRole="SchoolClass" />
+          <NavigationProperty Name="Participant" Relationship="OnlineOlymp2016Model.FK_Participant_SchoolClass" FromRole="SchoolClass" ToRole="Participant" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailTicket" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UILanguage" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Person_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="NationalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFile_FileType">
+          <End Role="FileType" Type="Self.FileType" Multiplicity="0..1" />
+          <End Role="PersonFile" Type="Self.PersonFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonFile">
+              <PropertyRef Name="FileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SchoolClass_SchoolClass">
+          <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="1" />
+          <End Role="SchoolClass1" Type="Self.SchoolClass" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SchoolClass1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnlineOlymp2016Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Country" EntityType="Self.Country" />
+          <EntitySet Name="DocumentType" EntityType="Self.DocumentType" />
+          <EntitySet Name="FileType" EntityType="Self.FileType" />
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="PersonFile" EntityType="Self.PersonFile" />
+          <EntitySet Name="PlaceList" EntityType="Self.PlaceList" />
+          <EntitySet Name="Region" EntityType="Self.Region" />
+          <EntitySet Name="SchoolClass" EntityType="Self.SchoolClass" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Person_Country" Association="Self.FK_Person_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFile_FileType" Association="Self.FK_PersonFile_FileType">
+            <End Role="FileType" EntitySet="FileType" />
+            <End Role="PersonFile" EntitySet="PersonFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SchoolClass_SchoolClass" Association="Self.FK_SchoolClass_SchoolClass">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="SchoolClass1" EntitySet="SchoolClass" />
+          </AssociationSet>
+          <EntitySet Name="Sex" EntityType="OnlineOlymp2016Model.Sex" />
+          <AssociationSet Name="FK_Person_Sex" Association="OnlineOlymp2016Model.FK_Person_Sex">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <EntitySet Name="Participant" EntityType="OnlineOlymp2016Model.Participant" />
+          <AssociationSet Name="FK_Participant_Country" Association="OnlineOlymp2016Model.FK_Participant_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_DocumentType" Association="OnlineOlymp2016Model.FK_Participant_DocumentType">
+            <End Role="DocumentType" EntitySet="DocumentType" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_SchoolClass" Association="OnlineOlymp2016Model.FK_Participant_SchoolClass">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Participant_Sex" Association="OnlineOlymp2016Model.FK_Participant_Sex">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Person" Relationship="OnlineOlymp2016Model.FK_Person_Sex" FromRole="Sex" ToRole="Person" />
+          <NavigationProperty Name="Participant" Relationship="OnlineOlymp2016Model.FK_Participant_Sex" FromRole="Sex" ToRole="Participant" />
+        </EntityType>
+        <Association Name="FK_Person_Sex">
+          <End Type="OnlineOlymp2016Model.Sex" Role="Sex" Multiplicity="0..1" />
+          <End Type="OnlineOlymp2016Model.Person" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="SexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="SexId" Type="Int32" />
+          <Property Name="PlaceOfBirth" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="ClassId" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" />
+          <Property Name="NationalityId" Type="Int32" />
+          <Property Name="RegionId" Type="Int32" />
+          <Property Name="SchoolName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentTypeId" Type="Int32" />
+          <Property Name="DocumentSeries" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentDate" Type="DateTime" Precision="0" />
+          <Property Name="DocumentAuthor" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentValid" Type="DateTime" Precision="3" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
+          <Property Name="ArrivalNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArrivalPlaceId" Type="Int32" />
+          <Property Name="DepatureDate" Type="DateTime" Precision="3" />
+          <Property Name="DepaturePlaceId" Type="Int32" />
+          <Property Name="DepatureNumber" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionalComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Country" Relationship="OnlineOlymp2016Model.FK_Participant_Country" FromRole="Participant" ToRole="Country" />
+          <NavigationProperty Name="DocumentType" Relationship="OnlineOlymp2016Model.FK_Participant_DocumentType" FromRole="Participant" ToRole="DocumentType" />
+          <NavigationProperty Name="SchoolClass" Relationship="OnlineOlymp2016Model.FK_Participant_SchoolClass" FromRole="Participant" ToRole="SchoolClass" />
+          <NavigationProperty Name="Sex" Relationship="OnlineOlymp2016Model.FK_Participant_Sex" FromRole="Participant" ToRole="Sex" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Guid" />
+        </EntityType>
+        <Association Name="FK_Participant_Country">
+          <End Type="OnlineOlymp2016Model.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="OnlineOlymp2016Model.Participant" Role="Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="NationalityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_DocumentType">
+          <End Type="OnlineOlymp2016Model.DocumentType" Role="DocumentType" Multiplicity="0..1" />
+          <End Type="OnlineOlymp2016Model.Participant" Role="Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="DocumentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_SchoolClass">
+          <End Type="OnlineOlymp2016Model.SchoolClass" Role="SchoolClass" Multiplicity="0..1" />
+          <End Type="OnlineOlymp2016Model.Participant" Role="Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Participant_Sex">
+          <End Type="OnlineOlymp2016Model.Sex" Role="Sex" Multiplicity="0..1" />
+          <End Type="OnlineOlymp2016Model.Participant" Role="Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="SexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnlineOlymp2016ModelStoreContainer" CdmEntityContainer="OnlineOlymp2016Entities">
+          <EntitySetMapping Name="Country">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameEng" ColumnName="NameEng" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="LevelOfUsing" ColumnName="LevelOfUsing" />
+                <ScalarProperty Name="IsRussia" ColumnName="IsRussia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentType">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.DocumentType">
+              <MappingFragment StoreEntitySet="DocumentType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameEng" ColumnName="NameEng" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileType">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.FileType">
+              <MappingFragment StoreEntitySet="FileType">
+                <ScalarProperty Name="IsForPerson" ColumnName="IsForPerson" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameEng" ColumnName="NameEng" />
+                <ScalarProperty Name="IsForParticipant" ColumnName="IsForParticipant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="SexId" ColumnName="SexId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
+                <ScalarProperty Name="NationalityId" ColumnName="NationalityId" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="PassportTypeId" ColumnName="PassportTypeId" />
+                <ScalarProperty Name="PassportSeries" ColumnName="PassportSeries" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="PassportDate" ColumnName="PassportDate" />
+                <ScalarProperty Name="PassportAuthor" ColumnName="PassportAuthor" />
+                <ScalarProperty Name="PassportValid" ColumnName="PassportValid" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="ArrivalNumber" ColumnName="ArrivalNumber" />
+                <ScalarProperty Name="ArrivalPlaceId" ColumnName="ArrivalPlaceId" />
+                <ScalarProperty Name="DepatureDate" ColumnName="DepatureDate" />
+                <ScalarProperty Name="DepaturePlaceId" ColumnName="DepaturePlaceId" />
+                <ScalarProperty Name="DepatureNumber" ColumnName="DepatureNumber" />
+                <ScalarProperty Name="AdditionalComments" ColumnName="AdditionalComments" />
+                <ScalarProperty Name="HasErrors" ColumnName="HasErrors" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonFile">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.PersonFile">
+              <MappingFragment StoreEntitySet="PersonFile">
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="FileExtention" ColumnName="FileExtention" />
+                <ScalarProperty Name="FileData" ColumnName="FileData" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+                <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+                <ScalarProperty Name="FailReason" ColumnName="FailReason" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlaceList">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.PlaceList">
+              <MappingFragment StoreEntitySet="PlaceList">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameEng" ColumnName="NameEng" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Region">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="RegionNumber" ColumnName="RegionNumber" />
+                <ScalarProperty Name="RodName" ColumnName="RodName" />
+                <ScalarProperty Name="PriemDictionaryId" ColumnName="PriemDictionaryId" />
+                <ScalarProperty Name="KladrCode" ColumnName="KladrCode" />
+                <ScalarProperty Name="RegionNumberStringValue" ColumnName="RegionNumberStringValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchoolClass">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.SchoolClass">
+              <MappingFragment StoreEntitySet="SchoolClass">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NameEng" ColumnName="NameEng" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="EmailTicket" ColumnName="EmailTicket" />
+                <ScalarProperty Name="UILanguage" ColumnName="UILanguage" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sex">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.Sex">
+              <MappingFragment StoreEntitySet="Sex">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Participant">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.Participant">
+              <MappingFragment StoreEntitySet="Participant">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="AdditionalComments" ColumnName="AdditionalComments" />
+                <ScalarProperty Name="DepatureNumber" ColumnName="DepatureNumber" />
+                <ScalarProperty Name="DepaturePlaceId" ColumnName="DepaturePlaceId" />
+                <ScalarProperty Name="DepatureDate" ColumnName="DepatureDate" />
+                <ScalarProperty Name="ArrivalPlaceId" ColumnName="ArrivalPlaceId" />
+                <ScalarProperty Name="ArrivalNumber" ColumnName="ArrivalNumber" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="DocumentValid" ColumnName="DocumentValid" />
+                <ScalarProperty Name="DocumentAuthor" ColumnName="DocumentAuthor" />
+                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+                <ScalarProperty Name="DocumentSeries" ColumnName="DocumentSeries" />
+                <ScalarProperty Name="DocumentTypeId" ColumnName="DocumentTypeId" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="NationalityId" ColumnName="NationalityId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
+                <ScalarProperty Name="SexId" ColumnName="SexId" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

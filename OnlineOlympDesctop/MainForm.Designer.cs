@@ -33,13 +33,19 @@
             this.спискиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smiPeronList = new System.Windows.Forms.ToolStripMenuItem();
             this.smiParticipant = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiVed = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiOlympVedList = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiCrypto = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiSelectVed = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.спискиToolStripMenuItem});
+            this.спискиToolStripMenuItem,
+            this.smiVed,
+            this.smiCrypto});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(592, 24);
@@ -69,6 +75,36 @@
             this.smiParticipant.Text = "Список участников";
             this.smiParticipant.Click += new System.EventHandler(this.smiParticipant_Click);
             // 
+            // smiVed
+            // 
+            this.smiVed.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.smiOlympVedList});
+            this.smiVed.Name = "smiVed";
+            this.smiVed.Size = new System.Drawing.Size(79, 20);
+            this.smiVed.Text = "Ведомости";
+            // 
+            // smiOlympVedList
+            // 
+            this.smiOlympVedList.Name = "smiOlympVedList";
+            this.smiOlympVedList.Size = new System.Drawing.Size(183, 22);
+            this.smiOlympVedList.Text = "Список ведомостей";
+            this.smiOlympVedList.Click += new System.EventHandler(this.smiOlympVedList_Click);
+            // 
+            // smiCrypto
+            // 
+            this.smiCrypto.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.smiSelectVed});
+            this.smiCrypto.Name = "smiCrypto";
+            this.smiCrypto.Size = new System.Drawing.Size(92, 20);
+            this.smiCrypto.Text = "Шифрование";
+            // 
+            // smiSelectVed
+            // 
+            this.smiSelectVed.Name = "smiSelectVed";
+            this.smiSelectVed.Size = new System.Drawing.Size(152, 22);
+            this.smiSelectVed.Text = "Ввод оценок";
+            this.smiSelectVed.Click += new System.EventHandler(this.smiSelectVed_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -94,6 +130,10 @@
         private System.Windows.Forms.ToolStripMenuItem спискиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem smiPeronList;
         private System.Windows.Forms.ToolStripMenuItem smiParticipant;
+        private System.Windows.Forms.ToolStripMenuItem smiVed;
+        private System.Windows.Forms.ToolStripMenuItem smiOlympVedList;
+        private System.Windows.Forms.ToolStripMenuItem smiCrypto;
+        private System.Windows.Forms.ToolStripMenuItem smiSelectVed;
     }
 }
 

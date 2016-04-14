@@ -21,10 +21,12 @@ namespace OnlineOlympDesctop
         public static bool IsTest { get; private set; }
         public static string dirTemplates;
         public static Guid PersonId { get; private set; }
-        public static long ContrAgentId { get; private set; }
+        //public static long ContrAgentId { get; private set; }
 
         static Util()
         {
+            CampaignYear = DateTime.Now.Year;
+
             string connStr =
             "Data Source = srveducation; Initial Catalog=OnlineOlympDesctop; Integrated Security=False;User ID=RusLangInet;Password=RusLangInet+Veronika;MultipleActiveResultSets=True; Connect Timeout=300";
 
@@ -35,7 +37,7 @@ namespace OnlineOlympDesctop
             else
                 IsTest = false;
 
-            TempFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\OnlineOlympDesctop_TempFiles\";
+            TempFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\OnlineOlympDesktop_TempFiles\";
             dirTemplates = string.Format(@"{0}\Templates", Application.StartupPath);
             CountryRussiaId = 193;
             try
@@ -655,7 +657,20 @@ namespace OnlineOlympDesctop
                     return "application/octet-stream";
             }
         }
-        
-    }
 
+        internal static bool IsOwner()
+        {
+            List<string> lstOwners = new List<string>() { "v.chikhira", "st021085" };
+            string userName = System.Environment.UserName;
+            return lstOwners.Contains(userName);
+        }
+        internal static bool IsPasha()
+        {
+            return false;
+        }
+        internal static bool IsCryptoMain()
+        {
+            return false;
+        }
+    }
 }

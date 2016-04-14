@@ -27,5 +27,15 @@ namespace OnlineOlympDesctop
         {
             new ParticipantList().Show();
         }
+
+        private void smiOlympVedList_Click(object sender, EventArgs e)
+        {
+            new OlympVedList().Show();
+        }
+
+        private void smiSelectVed_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

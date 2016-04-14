@@ -50,6 +50,9 @@
     <ApplicationIcon>jigl.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocX">
+      <HintPath>.\DocX.dll</HintPath>
+    </Reference>
     <Reference Include="EducServLib">
       <HintPath>..\..\_Shared libs\EducServLib\EducServLib\bin\Debug\EducServLib.dll</HintPath>
     </Reference>
@@ -61,12 +64,20 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EPPlus, Version=3.1.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\EDUCATION\EducationLib\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\2013\PriemLib\PriemLib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -78,6 +89,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BDClass.cs" />
+    <Compile Include="Crypto\EnterMarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\EnterMarks.Designer.cs">
+      <DependentUpon>EnterMarks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\ExamsVedCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\ExamsVedCard.Designer.cs">
+      <DependentUpon>ExamsVedCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Card\FileLoad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,19 +131,43 @@
     <Compile Include="Card\PersonCard.Designer.cs">
       <DependentUpon>PersonCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Crypto\SelectClassCrypto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\SelectClassCrypto.Designer.cs">
+      <DependentUpon>SelectClassCrypto.cs</DependentUpon>
+    </Compile>
     <Compile Include="ComboServ.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Country.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Country_local.cs">
+      <DependentUpon>OlympVseross2016.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Crypto\SelectVed.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\SelectVed.Designer.cs">
+      <DependentUpon>SelectVed.cs</DependentUpon>
+    </Compile>
     <Compile Include="DocumentType.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentType_local.cs">
+      <DependentUpon>OlympVseross2016.tt</DependentUpon>
     </Compile>
     <Compile Include="FileType.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
     </Compile>
     <Compile Include="HelpClass.cs" />
     <Compile Include="ListItem.cs" />
+    <Compile Include="Crypto\OlympVedList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\OlympVedList.Designer.cs">
+      <DependentUpon>OlympVedList.cs</DependentUpon>
+    </Compile>
     <Compile Include="List\ParticipantList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +185,24 @@
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OlympVed.cs">
+      <DependentUpon>OlympVseross2016.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OlympVseross2016.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OlympVseross2016.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OlympVseross2016.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OlympVseross2016.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OlympVseross2016.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OlympVseross2016.edmx</DependentUpon>
     </Compile>
     <Compile Include="OnlineOlymp.Context.cs">
       <AutoGen>True</AutoGen>
@@ -161,8 +226,18 @@
     <Compile Include="Person.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
     </Compile>
+    <Compile Include="PersonCopier.cs" />
     <Compile Include="PersonFile.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PersonInOlympVed.cs">
+      <DependentUpon>OlympVseross2016.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PersonInOlympVedMark.cs">
+      <DependentUpon>OlympVseross2016.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Person_local.cs">
+      <DependentUpon>OlympVseross2016.tt</DependentUpon>
     </Compile>
     <Compile Include="PlaceList.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
@@ -172,16 +247,31 @@
     <Compile Include="Region.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Region_local.cs">
+      <DependentUpon>OlympVseross2016.tt</DependentUpon>
+    </Compile>
     <Compile Include="SchoolClass.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
     </Compile>
+    <Compile Include="SchoolClass_local.cs">
+      <DependentUpon>OlympVseross2016.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sex.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sex_local.cs">
+      <DependentUpon>OlympVseross2016.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
+    <EmbeddedResource Include="Crypto\EnterMarks.resx">
+      <DependentUpon>EnterMarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\ExamsVedCard.resx">
+      <DependentUpon>ExamsVedCard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Card\FileLoad.resx">
       <DependentUpon>FileLoad.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,6 +286,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Card\PersonCard.resx">
       <DependentUpon>PersonCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\SelectClassCrypto.resx">
+      <DependentUpon>SelectClassCrypto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\OlympVedList.resx">
+      <DependentUpon>OlympVedList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\SelectVed.resx">
+      <DependentUpon>SelectVed.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="List\ParticipantList.resx">
       <DependentUpon>ParticipantList.cs</DependentUpon>
@@ -219,6 +318,23 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OnlineOlymp.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="OlympVseross2016.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OlympVseross2016.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="OlympVseross2016.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OlympVseross2016.edmx</DependentUpon>
+      <LastGenOutput>OlympVseross2016.Context.cs</LastGenOutput>
+    </None>
+    <None Include="OlympVseross2016.edmx.diagram">
+      <DependentUpon>OlympVseross2016.edmx</DependentUpon>
+    </None>
+    <None Include="OlympVseross2016.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OlympVseross2016.edmx</DependentUpon>
+      <LastGenOutput>OlympVseross2016.cs</LastGenOutput>
+    </None>
     <None Include="OnlineOlymp.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OnlineOlymp.edmx</DependentUpon>

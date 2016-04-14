@@ -135,17 +135,19 @@ namespace OnlineOlympDesctop
         }
         private void FillParticipants(OnlineOlymp2016Entities context)
         {
-            var Participants = (from x in context.Participant
-                                where x.UserId == UserId
-                                join cl in context.SchoolClass on x.ClassId equals cl.Id
-                                select new
-                                {
-                                    x.Id,
-                                    ФИО = ((x.Surname ?? "") + " " + (x.Name ?? "") + " " + (x.SecondName ?? "")).Trim(),
-                                    Класс = cl.Name,
-                                    HasFiles = (context.PersonFile.Where(p => p.ParticipantId == x.Id).Count() > 0),
-                                    Файлы = (context.PersonFile.Where(p => p.ParticipantId == x.Id).Count() > 0) ? "да" : "нет",
-                                }).OrderBy(x=>x.ФИО).ToList();
+            var Participants =
+                (from x in context.Participant
+                 where x.UserId == UserId
+                 join cl in context.SchoolClass on x.ClassId equals cl.Id
+                 select new
+                 {
+                     x.Id,
+                     ФИО = ((x.Surname ?? "") + " " + (x.Name ?? "") + " " + (x.SecondName ?? "")).Trim(),
+                     Класс = cl.Name,
+                     HasFiles = (context.PersonFile.Where(p => p.ParticipantId == x.Id).Count() > 0),
+                     Файлы = (context.PersonFile.Where(p => p.ParticipantId == x.Id).Count() > 0) ? "да" : "нет",
+                 }).OrderBy(x => x.ФИО).ToList();
+
             dgvParticipant.DataSource = Participants;
 
             foreach (var s in new List<string>() { "Id", "HasFiles" })
@@ -316,7 +318,6 @@ namespace OnlineOlympDesctop
         }
         public void Save()
         {
-            
             if (isModified)
             {
                 if (!Check())
@@ -420,13 +421,11 @@ namespace OnlineOlympDesctop
             else
                 MessageBox.Show("Сохраните карточку Сопровождающего");
         }
-
         private void btnParticipantAddExisted_Click(object sender, EventArgs e)
         {
             if (PersonId.HasValue)
                 new ParticipantAddToPerson(PersonId.Value, new UpdateHandler(FillParticipants)).Show();
         }
-
         private void btnFileLoad_Click(object sender, EventArgs e)
         {
             if (PersonId.HasValue)
@@ -434,7 +433,6 @@ namespace OnlineOlympDesctop
                 new FileLoad(PersonId.Value, null, false, new UpdateHandler(FillFiles)).Show();
             }
         }
-
         private void dgvFiles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvFiles.CurrentCell == null)
@@ -491,7 +489,6 @@ namespace OnlineOlympDesctop
                 MessageBox.Show("Ошибочка");
             }
         }
-
         private void btnFileOpen_Click(object sender, EventArgs e)
         {
             List<Guid> Idlst = new List<Guid>();
@@ -576,6 +573,7 @@ namespace OnlineOlympDesctop
             }
 
         }
+        
         #region Hide
 
         int A;
@@ -670,20 +668,16 @@ namespace OnlineOlympDesctop
                 MessageBox.Show("Ошибочка, позвоните нам. 326-49-59");
             }
         }
-
         private void btnPersonAdd_Click(object sender, EventArgs e)
         {
             var card = new PersonCard(new UpdateHandler(FillPerson));
             card.UserId = UserId;
             card.Show();
         }
-
         private void btnPersonExistedAdd_Click(object sender, EventArgs e)
         {
             if (PersonId.HasValue)
                 new PersonAddToPerson(PersonId.Value, new UpdateHandler(FillPerson)).Show();
         }
-
-
     }
 }

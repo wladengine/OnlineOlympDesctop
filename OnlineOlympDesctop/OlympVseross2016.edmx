@@ -1,0 +1,639 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OlympVseross2016Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="DocumentType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OlympVed">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OlympYear" Type="int" Nullable="false" />
+          <Property Name="ClassId" Type="int" Nullable="false" />
+          <Property Name="IsLocked" Type="bit" Nullable="false" />
+          <Property Name="IsLoad" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SexId" Type="int" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="DocumentTypeId" Type="int" Nullable="false" />
+          <Property Name="DocumentSeries" Type="nvarchar" MaxLength="10" />
+          <Property Name="DocumentNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="DocumentAuthor" Type="nvarchar" MaxLength="500" />
+          <Property Name="DocumentDate" Type="date" Nullable="false" />
+          <Property Name="SchoolClassId" Type="int" Nullable="false" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="RegionId" Type="int" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonInOlympVed">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" />
+          <Property Name="OlympVedId" Type="uniqueidentifier" />
+          <Property Name="CryptNumber" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="PersonInOlympVedMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonInOlympVedId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TaskNumber" Type="int" Nullable="false" />
+          <Property Name="Mark" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="AppealMark" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Number" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="SchoolClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="IntVal" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_OlympVed_SchoolClass">
+          <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="1" />
+          <End Role="OlympVed" Type="Self.OlympVed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympVed">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_DocumentType">
+          <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="DocumentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Region">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_SchoolClass">
+          <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="SchoolClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Sex">
+          <End Role="Sex" Type="Self.Sex" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="SexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonInOlympVed_OlympVed">
+          <End Role="OlympVed" Type="Self.OlympVed" Multiplicity="0..1" />
+          <End Role="PersonInOlympVed" Type="Self.PersonInOlympVed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympVed">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonInOlympVed">
+              <PropertyRef Name="OlympVedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonInOlympVed_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="PersonInOlympVed" Type="Self.PersonInOlympVed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonInOlympVed">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonInOlympVedMark_PersonInOlympVed">
+          <End Role="PersonInOlympVed" Type="Self.PersonInOlympVed" Multiplicity="1" />
+          <End Role="PersonInOlympVedMark" Type="Self.PersonInOlympVedMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonInOlympVed">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonInOlympVedMark">
+              <PropertyRef Name="PersonInOlympVedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OlympVseross2016ModelStoreContainer">
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentType" EntityType="Self.DocumentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OlympVed" EntityType="Self.OlympVed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonInOlympVed" EntityType="Self.PersonInOlympVed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonInOlympVedMark" EntityType="Self.PersonInOlympVedMark" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolClass" EntityType="Self.SchoolClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OlympVed_SchoolClass" Association="Self.FK_OlympVed_SchoolClass">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="OlympVed" EntitySet="OlympVed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Country" Association="Self.FK_Person_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_DocumentType" Association="Self.FK_Person_DocumentType">
+            <End Role="DocumentType" EntitySet="DocumentType" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Region" Association="Self.FK_Person_Region">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_SchoolClass" Association="Self.FK_Person_SchoolClass">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Sex" Association="Self.FK_Person_Sex">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonInOlympVed_OlympVed" Association="Self.FK_PersonInOlympVed_OlympVed">
+            <End Role="OlympVed" EntitySet="OlympVed" />
+            <End Role="PersonInOlympVed" EntitySet="PersonInOlympVed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonInOlympVed_Person" Association="Self.FK_PersonInOlympVed_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonInOlympVed" EntitySet="PersonInOlympVed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonInOlympVedMark_PersonInOlympVed" Association="Self.FK_PersonInOlympVedMark_PersonInOlympVed">
+            <End Role="PersonInOlympVed" EntitySet="PersonInOlympVed" />
+            <End Role="PersonInOlympVedMark" EntitySet="PersonInOlympVedMark" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OlympVseross2016Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Person_local">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="DocumentTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DocumentSeries" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentAuthor" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentDate" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="SchoolClassId" Type="Int32" Nullable="false" />
+          <Property Name="SchoolName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="SexId" Type="Int32" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Country" Relationship="OlympVseross2016Model.FK_Person_Country" FromRole="Person" ToRole="Country" />
+          <NavigationProperty Name="DocumentType" Relationship="OlympVseross2016Model.FK_Person_DocumentType" FromRole="Person" ToRole="DocumentType" />
+          <NavigationProperty Name="Region" Relationship="OlympVseross2016Model.FK_Person_Region" FromRole="Person" ToRole="Region" />
+          <NavigationProperty Name="SchoolClass" Relationship="OlympVseross2016Model.FK_Person_SchoolClass" FromRole="Person" ToRole="SchoolClass" />
+          <NavigationProperty Name="Sex" Relationship="OlympVseross2016Model.FK_Person_Sex" FromRole="Person" ToRole="Sex" />
+          <NavigationProperty Name="PersonInOlympVed" Relationship="OlympVseross2016Model.FK_PersonInOlympVed_Person" FromRole="Person" ToRole="PersonInOlympVed" />
+        </EntityType>
+        <EntityType Name="PersonInOlympVed">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" />
+          <Property Name="OlympVedId" Type="Guid" />
+          <Property Name="CryptNumber" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OlympVed" Relationship="OlympVseross2016Model.FK_PersonInOlympVed_OlympVed" FromRole="PersonInOlympVed" ToRole="OlympVed" />
+          <NavigationProperty Name="Person" Relationship="OlympVseross2016Model.FK_PersonInOlympVed_Person" FromRole="PersonInOlympVed" ToRole="Person" />
+          <NavigationProperty Name="PersonInOlympVedMark" Relationship="OlympVseross2016Model.FK_PersonInOlympVedMark_PersonInOlympVed" FromRole="PersonInOlympVed" ToRole="PersonInOlympVedMark" />
+        </EntityType>
+        <EntityType Name="PersonInOlympVedMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PersonInOlympVedId" Type="Guid" Nullable="false" />
+          <Property Name="TaskNumber" Type="Int32" Nullable="false" />
+          <Property Name="Mark" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="AppealMark" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="PersonInOlympVed" Relationship="OlympVseross2016Model.FK_PersonInOlympVedMark_PersonInOlympVed" FromRole="PersonInOlympVedMark" ToRole="PersonInOlympVed" />
+        </EntityType>
+        <EntityContainer Name="OlympVseross2016Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Person" EntityType="OlympVseross2016Model.Person_local" />
+          <EntitySet Name="PersonInOlympVed" EntityType="Self.PersonInOlympVed" />
+          <EntitySet Name="PersonInOlympVedMark" EntityType="Self.PersonInOlympVedMark" />
+          <EntitySet Name="OlympVed" EntityType="OlympVseross2016Model.OlympVed" />
+          <EntitySet Name="Country" EntityType="OlympVseross2016Model.Country_local" />
+          <EntitySet Name="DocumentType" EntityType="OlympVseross2016Model.DocumentType_local" />
+          <EntitySet Name="Region" EntityType="OlympVseross2016Model.Region_local" />
+          <EntitySet Name="SchoolClass" EntityType="OlympVseross2016Model.SchoolClass_local" />
+          <EntitySet Name="Sex" EntityType="OlympVseross2016Model.Sex_local" />
+          <AssociationSet Name="FK_Person_Country" Association="OlympVseross2016Model.FK_Person_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_DocumentType" Association="OlympVseross2016Model.FK_Person_DocumentType">
+            <End Role="DocumentType" EntitySet="DocumentType" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympVed_SchoolClass" Association="OlympVseross2016Model.FK_OlympVed_SchoolClass">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="OlympVed" EntitySet="OlympVed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonInOlympVed_OlympVed" Association="OlympVseross2016Model.FK_PersonInOlympVed_OlympVed">
+            <End Role="OlympVed" EntitySet="OlympVed" />
+            <End Role="PersonInOlympVed" EntitySet="PersonInOlympVed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Region" Association="OlympVseross2016Model.FK_Person_Region">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_SchoolClass" Association="OlympVseross2016Model.FK_Person_SchoolClass">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Sex" Association="OlympVseross2016Model.FK_Person_Sex">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonInOlympVed_Person" Association="OlympVseross2016Model.FK_PersonInOlympVed_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonInOlympVed" EntitySet="PersonInOlympVed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonInOlympVedMark_PersonInOlympVed" Association="OlympVseross2016Model.FK_PersonInOlympVedMark_PersonInOlympVed">
+            <End Role="PersonInOlympVed" EntitySet="PersonInOlympVed" />
+            <End Role="PersonInOlympVedMark" EntitySet="PersonInOlympVedMark" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="OlympVed">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="OlympYear" Type="Int32" Nullable="false" />
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SchoolClass" Relationship="OlympVseross2016Model.FK_OlympVed_SchoolClass" FromRole="OlympVed" ToRole="SchoolClass" />
+          <NavigationProperty Name="PersonInOlympVed" Relationship="OlympVseross2016Model.FK_PersonInOlympVed_OlympVed" FromRole="OlympVed" ToRole="PersonInOlympVed" />
+          <Property Name="IsLocked" Type="Boolean" Nullable="false" />
+          <Property Name="IsLoad" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Country_local">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Person" Relationship="OlympVseross2016Model.FK_Person_Country" FromRole="Country" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="DocumentType_local">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Person" Relationship="OlympVseross2016Model.FK_Person_DocumentType" FromRole="DocumentType" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Region_local">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Person" Relationship="OlympVseross2016Model.FK_Person_Region" FromRole="Region" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="SchoolClass_local">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OlympVed" Relationship="OlympVseross2016Model.FK_OlympVed_SchoolClass" FromRole="SchoolClass" ToRole="OlympVed" />
+          <NavigationProperty Name="Person" Relationship="OlympVseross2016Model.FK_Person_SchoolClass" FromRole="SchoolClass" ToRole="Person" />
+          <Property Name="IntVal" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sex_local">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Person" Relationship="OlympVseross2016Model.FK_Person_Sex" FromRole="Sex" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK_Person_Country">
+          <End Type="OlympVseross2016Model.Country_local" Role="Country" Multiplicity="1" />
+          <End Type="OlympVseross2016Model.Person_local" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_DocumentType">
+          <End Type="OlympVseross2016Model.DocumentType_local" Role="DocumentType" Multiplicity="1" />
+          <End Type="OlympVseross2016Model.Person_local" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="DocumentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympVed_SchoolClass">
+          <End Type="OlympVseross2016Model.SchoolClass_local" Role="SchoolClass" Multiplicity="1" />
+          <End Type="OlympVseross2016Model.OlympVed" Role="OlympVed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympVed">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonInOlympVed_OlympVed">
+          <End Type="OlympVseross2016Model.OlympVed" Role="OlympVed" Multiplicity="0..1" />
+          <End Type="OlympVseross2016Model.PersonInOlympVed" Role="PersonInOlympVed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympVed">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonInOlympVed">
+              <PropertyRef Name="OlympVedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Region">
+          <End Type="OlympVseross2016Model.Region_local" Role="Region" Multiplicity="1" />
+          <End Type="OlympVseross2016Model.Person_local" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_SchoolClass">
+          <End Type="OlympVseross2016Model.SchoolClass_local" Role="SchoolClass" Multiplicity="1" />
+          <End Type="OlympVseross2016Model.Person_local" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="SchoolClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Sex">
+          <End Type="OlympVseross2016Model.Sex_local" Role="Sex" Multiplicity="1" />
+          <End Type="OlympVseross2016Model.Person_local" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="SexId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonInOlympVed_Person">
+          <End Type="OlympVseross2016Model.Person_local" Role="Person" Multiplicity="0..1" />
+          <End Type="OlympVseross2016Model.PersonInOlympVed" Role="PersonInOlympVed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonInOlympVed">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonInOlympVedMark_PersonInOlympVed">
+          <End Type="OlympVseross2016Model.PersonInOlympVed" Role="PersonInOlympVed" Multiplicity="1" />
+          <End Type="OlympVseross2016Model.PersonInOlympVedMark" Role="PersonInOlympVedMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonInOlympVed">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonInOlympVedMark">
+              <PropertyRef Name="PersonInOlympVedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OlympVseross2016ModelStoreContainer" CdmEntityContainer="OlympVseross2016Entities">
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.Person_local">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="SexId" ColumnName="SexId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="DocumentTypeId" ColumnName="DocumentTypeId" />
+                <ScalarProperty Name="DocumentSeries" ColumnName="DocumentSeries" />
+                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+                <ScalarProperty Name="DocumentAuthor" ColumnName="DocumentAuthor" />
+                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+                <ScalarProperty Name="SchoolClassId" ColumnName="SchoolClassId" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonInOlympVed">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.PersonInOlympVed">
+              <MappingFragment StoreEntitySet="PersonInOlympVed">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="OlympVedId" ColumnName="OlympVedId" />
+                <ScalarProperty Name="CryptNumber" ColumnName="CryptNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonInOlympVedMark">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.PersonInOlympVedMark">
+              <MappingFragment StoreEntitySet="PersonInOlympVedMark">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PersonInOlympVedId" ColumnName="PersonInOlympVedId" />
+                <ScalarProperty Name="TaskNumber" ColumnName="TaskNumber" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="AppealMark" ColumnName="AppealMark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OlympVed">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.OlympVed">
+              <MappingFragment StoreEntitySet="OlympVed">
+                <ScalarProperty Name="IsLoad" ColumnName="IsLoad" />
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Country">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.Country_local">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentType">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.DocumentType_local">
+              <MappingFragment StoreEntitySet="DocumentType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Region">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.Region_local">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchoolClass">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.SchoolClass_local">
+              <MappingFragment StoreEntitySet="SchoolClass">
+                <ScalarProperty Name="IntVal" ColumnName="IntVal" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sex">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.Sex_local">
+              <MappingFragment StoreEntitySet="Sex">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

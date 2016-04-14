@@ -89,6 +89,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BDClass.cs" />
+    <Compile Include="Card\EnterMarksAppeal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Card\EnterMarksAppeal.Designer.cs">
+      <DependentUpon>EnterMarksAppeal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Crypto\EnterMarks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,6 +275,9 @@
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
+    <EmbeddedResource Include="Card\EnterMarksAppeal.resx">
+      <DependentUpon>EnterMarksAppeal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Crypto\EnterMarks.resx">
       <DependentUpon>EnterMarks.cs</DependentUpon>
     </EmbeddedResource>

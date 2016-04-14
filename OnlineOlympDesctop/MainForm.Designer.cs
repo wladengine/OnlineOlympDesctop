@@ -37,6 +37,7 @@
             this.smiOlympVedList = new System.Windows.Forms.ToolStripMenuItem();
             this.smiCrypto = new System.Windows.Forms.ToolStripMenuItem();
             this.smiSelectVed = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiVedAppeal = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,7 +94,8 @@
             // smiCrypto
             // 
             this.smiCrypto.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.smiSelectVed});
+            this.smiSelectVed,
+            this.smiVedAppeal});
             this.smiCrypto.Name = "smiCrypto";
             this.smiCrypto.Size = new System.Drawing.Size(92, 20);
             this.smiCrypto.Text = "Шифрование";
@@ -101,9 +103,16 @@
             // smiSelectVed
             // 
             this.smiSelectVed.Name = "smiSelectVed";
-            this.smiSelectVed.Size = new System.Drawing.Size(152, 22);
+            this.smiSelectVed.Size = new System.Drawing.Size(218, 22);
             this.smiSelectVed.Text = "Ввод оценок";
             this.smiSelectVed.Click += new System.EventHandler(this.smiSelectVed_Click);
+            // 
+            // smiVedAppeal
+            // 
+            this.smiVedAppeal.Name = "smiVedAppeal";
+            this.smiVedAppeal.Size = new System.Drawing.Size(218, 22);
+            this.smiVedAppeal.Text = "Ведомость для апелляции";
+            this.smiVedAppeal.Click += new System.EventHandler(this.smiVedAppeal_Click);
             // 
             // MainForm
             // 
@@ -134,6 +143,7 @@
         private System.Windows.Forms.ToolStripMenuItem smiOlympVedList;
         private System.Windows.Forms.ToolStripMenuItem smiCrypto;
         private System.Windows.Forms.ToolStripMenuItem smiSelectVed;
+        private System.Windows.Forms.ToolStripMenuItem smiVedAppeal;
     }
 }
 

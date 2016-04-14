@@ -96,18 +96,20 @@ namespace OnlineOlympDesctop
 
             using (OlympVseross2016Entities context = new OlympVseross2016Entities())
             {
-                var persMark = from evh in context.PersonInOlympVedMark
-                               where evh.PersonInOlympVedId == _personInVedId
-                               select new
-                               {
-                                   evh.Id,
-                                   evh.PersonInOlympVed.Person.Surname,
-                                   evh.PersonInOlympVed.Person.Name,
-                                   evh.PersonInOlympVed.Person.SecondName,
-                                   evh.PersonInOlympVed.CryptNumber,
-                                   evh.Mark,
-                                   evh.TaskNumber
-                               };
+                var persMark =
+                    (from evh in context.PersonInOlympVedMark
+                     where evh.PersonInOlympVedId == _personInVedId
+                     orderby evh.TaskNumber
+                     select new
+                     {
+                         evh.Id,
+                         evh.PersonInOlympVed.Person.Surname,
+                         evh.PersonInOlympVed.Person.Name,
+                         evh.PersonInOlympVed.Person.SecondName,
+                         evh.PersonInOlympVed.CryptNumber,
+                         evh.Mark,
+                         evh.TaskNumber
+                     }).ToList();
 
                 foreach (var pm in persMark)
                 {
@@ -223,8 +225,8 @@ namespace OnlineOlympDesctop
                     btnSave.Text = "Сохранить";
                     _isModified = true;
                     dgvMarks.ReadOnly = false;
-                    dgvMarks.Columns["PersonId"].ReadOnly = true;
-                    dgvMarks.Columns["Номер"].ReadOnly = true;
+                    dgvMarks.Columns["Id"].ReadOnly = true;
+                    dgvMarks.Columns["Шифр"].ReadOnly = true;
                     return true;
                 }                
             }
@@ -248,7 +250,7 @@ namespace OnlineOlympDesctop
                         colCount++;
                 }
 
-                Novacode.Table td = doc.Tables[2];
+                Novacode.Table td = doc.Tables[0];
 
                 // печать из грида
                 int i = 0;
@@ -257,10 +259,10 @@ namespace OnlineOlympDesctop
                     if (clm.Visible)
                     {
                         td.Rows[0].Cells[i].Paragraphs[0].InsertText(clm.HeaderText);
-                        td.InsertRow();
                         i++;
                     }
                 }
+                td.InsertRow();
 
                 i = 1;
                 int j;
@@ -271,7 +273,7 @@ namespace OnlineOlympDesctop
                     {
                         if (clm.Visible)
                         {
-                            td.Rows[j].Cells[i].Paragraphs[0].InsertText(dgvr.Cells[clm.Index].Value.ToString());
+                            td.Rows[i].Cells[j].Paragraphs[0].InsertText(dgvr.Cells[clm.Index].Value.ToString());
                             j++;
                         }
                     }

@@ -92,6 +92,18 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="extRatingList">
+          <Key>
+            <PropertyRef Name="OlympVedId" />
+          </Key>
+          <Property Name="OlympVedId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" />
+          <Property Name="CryptNumber" Type="nvarchar" MaxLength="5" />
+          <Property Name="Place" Type="bigint" />
+          <Property Name="TotalMark" Type="decimal" Precision="38" Scale="2" />
+        </EntityType>
         <Association Name="FK_OlympVed_SchoolClass">
           <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="1" />
           <End Role="OlympVed" Type="Self.OlympVed" Multiplicity="*" />
@@ -210,6 +222,15 @@
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SchoolClass" EntityType="Self.SchoolClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="extRatingList" EntityType="Self.extRatingList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [extRatingList].[OlympVedId] AS [OlympVedId], 
+    [extRatingList].[PersonId] AS [PersonId], 
+    [extRatingList].[CryptNumber] AS [CryptNumber], 
+    [extRatingList].[Place] AS [Place], 
+    [extRatingList].[TotalMark] AS [TotalMark]
+    FROM [dbo].[extRatingList] AS [extRatingList]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_OlympVed_SchoolClass" Association="Self.FK_OlympVed_SchoolClass">
             <End Role="SchoolClass" EntitySet="SchoolClass" />
             <End Role="OlympVed" EntitySet="OlympVed" />
@@ -347,6 +368,7 @@
             <End Role="PersonInOlympVed" EntitySet="PersonInOlympVed" />
             <End Role="PersonInOlympVedMark" EntitySet="PersonInOlympVedMark" />
           </AssociationSet>
+          <EntitySet Name="extRatingList" EntityType="OlympVseross2016Model.extRatingList" />
         </EntityContainer>
         <EntityType Name="OlympVed">
           <Key>
@@ -511,6 +533,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="extRatingList">
+          <Key>
+            <PropertyRef Name="OlympVedId" />
+          </Key>
+          <Property Name="OlympVedId" Type="Guid" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" />
+          <Property Name="Place" Type="Int64" />
+          <Property Name="TotalMark" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="CryptNumber" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -610,6 +642,17 @@
               <MappingFragment StoreEntitySet="Sex">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="extRatingList">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.extRatingList">
+              <MappingFragment StoreEntitySet="extRatingList">
+                <ScalarProperty Name="CryptNumber" ColumnName="CryptNumber" />
+                <ScalarProperty Name="TotalMark" ColumnName="TotalMark" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="OlympVedId" ColumnName="OlympVedId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

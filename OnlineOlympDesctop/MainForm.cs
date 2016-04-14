@@ -35,7 +35,7 @@ namespace OnlineOlympDesctop
 
         private void smiSelectVed_Click(object sender, EventArgs e)
         {
-            
+            new SelectVed().Show();
         }
     }
 }

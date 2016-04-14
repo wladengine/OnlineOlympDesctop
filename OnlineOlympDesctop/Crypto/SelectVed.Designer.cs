@@ -1,4 +1,4 @@
-﻿namespace OnlineOlympDesctop.Crypto
+﻿namespace OnlineOlympDesctop
 {
     partial class SelectVed
     {
@@ -85,6 +85,7 @@
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnOK.Enabled = false;
             this.btnOK.Location = new System.Drawing.Point(9, 173);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);

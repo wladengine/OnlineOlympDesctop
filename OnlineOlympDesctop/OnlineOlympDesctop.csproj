@@ -157,6 +157,9 @@
     <Compile Include="DocumentType_local.cs">
       <DependentUpon>OlympVseross2016.tt</DependentUpon>
     </Compile>
+    <Compile Include="extRatingList.cs">
+      <DependentUpon>OlympVseross2016.tt</DependentUpon>
+    </Compile>
     <Compile Include="FileType.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
     </Compile>

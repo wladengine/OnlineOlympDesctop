@@ -684,5 +684,111 @@ namespace OnlineOlympDesctop
                 }
             }
         }
+
+        private void btnPrintProtocol_Click(object sender, EventArgs e)
+        {
+            Novacode.DocX doc;
+            string saveFileName = Util.TempFolder + @"\TableVedReport.docx";
+
+            try
+            {
+                File.Copy(Util.dirTemplates + @"\TableVedReport.docx", saveFileName, true);
+                doc = Novacode.DocX.Load(saveFileName);
+
+                using (OlympVseross2016Entities context = new OlympVseross2016Entities())
+                {
+                    var OlympVedInfo = context.OlympVed.Where(x => x.Id == OlympVedId).FirstOrDefault();
+                    if (OlympVedInfo == null)
+                    {
+                        WinFormsServ.Error("Не найдена ведомость!");
+                        return;
+                    }
+
+                    doc.ReplaceText("&&SchoolClass", OlympVedInfo.SchoolClass.Name);
+                    Novacode.Table td = doc.Tables[0];
+
+                    var lstResults =
+                        (from RatingList in context.extRatingList
+                         join Pers in context.Person on RatingList.PersonId equals Pers.Id
+                         where RatingList.OlympVedId == OlympVedId
+                         select new
+                         {
+                             RatingList.TotalMark,
+                             RatingList.Place,
+                             Pers.Surname,
+                             Pers.Name,
+                             Pers.SecondName,
+                             Pers.SchoolName,
+                             Pers.City,
+                             Region = Pers.Region.Name,
+                             RatingList.CryptNumber,
+                             RatingList.OlympVedId,
+                             RatingList.PersonId,
+                             SchoolClass = Pers.SchoolClass.IntVal
+                         })
+                         .ToList()
+                         .OrderBy(x => x.Place)
+                         .Select(x => new
+                         {
+                             x.Surname,
+                             x.Name,
+                             x.SecondName,
+                             x.SchoolName,
+                             x.Region,
+                             x.City,
+                             x.CryptNumber,
+                             x.TotalMark,
+                             x.Place,
+                             x.SchoolClass,
+                             Results = context.PersonInOlympVedMark
+                              .Where(z => z.PersonInOlympVed.PersonId == x.PersonId && z.PersonInOlympVed.OlympVedId == x.OlympVedId)
+                              .Select(z => new { z.TaskNumber, z.Mark, z.AppealMark }).ToList()
+                         })
+                         .ToList();
+
+                    var row = td.Rows[2];
+                    for (int m = 0; m < lstResults.Count - 1; m++)
+                        td.InsertRow(row);
+
+                    Novacode.Formatting formatting = new Novacode.Formatting();
+                    formatting.Size = 8d;
+
+                    // печать списка
+                    int i = 2;
+                    foreach (var Res in lstResults)
+                    {
+                        td.Rows[i].Cells[0].Paragraphs[0].InsertText((i - 1).ToString(), false, formatting);
+                        td.Rows[i].Cells[1].Paragraphs[0].InsertText(Res.Surname, false, formatting);
+                        td.Rows[i].Cells[2].Paragraphs[0].InsertText(Res.Name, false, formatting);
+                        td.Rows[i].Cells[3].Paragraphs[0].InsertText(Res.SecondName, false, formatting);
+                        td.Rows[i].Cells[4].Paragraphs[0].InsertText(Res.SchoolClass.ToString(), false, formatting);
+                        td.Rows[i].Cells[5].Paragraphs[0].InsertText(Res.SchoolName, false, formatting);
+                        td.Rows[i].Cells[6].Paragraphs[0].InsertText(Res.City ?? "", false, formatting);
+                        td.Rows[i].Cells[7].Paragraphs[0].InsertText(Res.CryptNumber ?? "", false, formatting);
+                        td.Rows[i].Cells[8].Paragraphs[0].InsertText(Res.Results.Where(x => x.TaskNumber == 1).Select(x => x.AppealMark ?? (x.Mark ?? 0m)).DefaultIfEmpty(0m).First().ToString(), false, formatting);
+                        td.Rows[i].Cells[9].Paragraphs[0].InsertText(Res.Results.Where(x => x.TaskNumber == 2).Select(x => x.AppealMark ?? (x.Mark ?? 0m)).DefaultIfEmpty(0m).First().ToString(), false, formatting);
+                        td.Rows[i].Cells[10].Paragraphs[0].InsertText(Res.Results.Where(x => x.TaskNumber == 3).Select(x => x.AppealMark ?? (x.Mark ?? 0m)).DefaultIfEmpty(0m).First().ToString(), false, formatting);
+                        td.Rows[i].Cells[11].Paragraphs[0].InsertText(Res.Results.Where(x => x.TaskNumber == 4).Select(x => x.AppealMark ?? (x.Mark ?? 0m)).DefaultIfEmpty(0m).First().ToString(), false, formatting);
+                        td.Rows[i].Cells[12].Paragraphs[0].InsertText(Res.Results.Where(x => x.TaskNumber == 5).Select(x => x.AppealMark ?? (x.Mark ?? 0m)).DefaultIfEmpty(0m).First().ToString(), false, formatting);
+                        td.Rows[i].Cells[13].Paragraphs[0].InsertText(Res.Results.Where(x => x.TaskNumber == 6).Select(x => x.AppealMark ?? (x.Mark ?? 0m)).DefaultIfEmpty(0m).First().ToString(), false, formatting);
+                        td.Rows[i].Cells[14].Paragraphs[0].InsertText(Res.Results.Where(x => x.TaskNumber == 7).Select(x => x.AppealMark ?? (x.Mark ?? 0m)).DefaultIfEmpty(0m).First().ToString(), false, formatting);
+                        td.Rows[i].Cells[15].Paragraphs[0].InsertText(Res.Results.Where(x => x.TaskNumber == 8).Select(x => x.AppealMark ?? (x.Mark ?? 0m)).DefaultIfEmpty(0m).First().ToString(), false, formatting);
+                        td.Rows[i].Cells[16].Paragraphs[0].InsertText((Res.TotalMark ?? 0m).ToString(), false, formatting);
+                        td.Rows[i].Cells[17].Paragraphs[0].InsertText(Res.Place.HasValue ? Res.Place.Value.ToString() : "", false, formatting);
+
+                        i++;
+                        
+                    }
+                }
+
+                doc.Save();
+
+                Process.Start(saveFileName);
+            }
+            catch (Exception exc)
+            {
+                WinFormsServ.Error("Ошибка вывода в Word: \n", exc);
+            }
+        }
     }
 }

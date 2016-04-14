@@ -215,6 +215,7 @@
             this.btnPrintProtocol.TabIndex = 167;
             this.btnPrintProtocol.Text = "Печать протокола";
             this.btnPrintProtocol.UseVisualStyleBackColor = true;
+            this.btnPrintProtocol.Click += new System.EventHandler(this.btnPrintProtocol_Click);
             // 
             // OlympVedList
             // 

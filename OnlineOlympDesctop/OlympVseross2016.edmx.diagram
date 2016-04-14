@@ -23,6 +23,7 @@
         <AssociationConnector Association="OlympVseross2016Model.FK_Person_Sex" />
         <AssociationConnector Association="OlympVseross2016Model.FK_PersonInOlympVed_Person" />
         <AssociationConnector Association="OlympVseross2016Model.FK_PersonInOlympVedMark_PersonInOlympVed" />
+        <EntityTypeShape EntityType="OlympVseross2016Model.extRatingList" Width="1.5" PointX="13.75" PointY="0.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

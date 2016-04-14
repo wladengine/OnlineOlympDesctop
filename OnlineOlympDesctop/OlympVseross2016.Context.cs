@@ -34,5 +34,6 @@ namespace OnlineOlympDesctop
         public virtual DbSet<Region_local> Region { get; set; }
         public virtual DbSet<SchoolClass_local> SchoolClass { get; set; }
         public virtual DbSet<Sex_local> Sex { get; set; }
+        public virtual DbSet<extRatingList> extRatingList { get; set; }
     }
 }

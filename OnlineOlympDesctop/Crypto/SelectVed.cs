@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OnlineOlympDesctop.Crypto
+namespace OnlineOlympDesctop
 {
     public partial class SelectVed : Form
     {
@@ -64,30 +64,47 @@ namespace OnlineOlympDesctop.Crypto
                     return;
 
                 string CryptNum = tbCryptNum.Text.Trim();
+                //считываем 2 символа класса
+                string ClassNum = CryptNum.Substring(0, 2);
                 //считываем 5 символов кода человека
                 CryptNum = CryptNum.Substring(CryptNum.IndexOf("==") + 2, 5);
 
                 using (OlympVseross2016Entities context = new OlympVseross2016Entities())
                 {
-                    var olVed = (from PersInVed in context.PersonInOlympVed
-                                 where PersInVed.CryptNumber == CryptNum
-                                 select new
-                                 {
-                                     SchoolClass = PersInVed.OlympVed.SchoolClass.Name,
-                                     PersInVed.OlympVed.OlympYear,
-                                     PersInVed.OlympVed.IsLocked,
-                                     PersInVed.Id,
-                                     PersInVed.CryptNumber
-                                 }).FirstOrDefault();
+                    var olVed =
+                        (from PersInVed in context.PersonInOlympVed
+                         where PersInVed.CryptNumber == CryptNum
+                         select new
+                         {
+                             SchoolClass = PersInVed.OlympVed.SchoolClass.Name,
+                             SchoolClassNum = PersInVed.OlympVed.SchoolClass.IntVal,
+                             PersInVed.OlympVed.OlympYear,
+                             PersInVed.OlympVed.IsLocked,
+                             PersInVed.Id,
+                             PersInVed.CryptNumber
+                         }).FirstOrDefault();
 
-                    PersInVedId = olVed.Id;
-                    isLocked = olVed.IsLocked;
+                    int iClassNum = 0;
+                    int.TryParse(ClassNum, out iClassNum);
 
-                    string g = "";
-                    g = olVed.SchoolClass + "(" + olVed.OlympYear + " год)" + "\r\n" +
-                          "Шифрокод: " + olVed.CryptNumber + "\r\n";
+                    if (iClassNum != olVed.SchoolClassNum)
+                    {
+                        tbVedName.Text = "!НЕВЕРНО УКАЗАН КЛАСС";
+                        btnOK.Enabled = false;
+                    }
+                    else
+                    {
+                        PersInVedId = olVed.Id;
+                        isLocked = olVed.IsLocked;
 
-                    tbVedName.Text = g;
+                        string g = "";
+                        g = olVed.SchoolClass + "(" + olVed.OlympYear + " год)" + "\r\n" +
+                              "Шифрокод: " + olVed.CryptNumber + "\r\n";
+
+                        tbVedName.Text = g;
+
+                        btnOK.Enabled = true;
+                    }
                 }
             }
         }

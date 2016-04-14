@@ -46,6 +46,7 @@
             this.btnCancel.TabIndex = 25;
             this.btnCancel.Text = "Закрыть";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnView
             // 
@@ -56,6 +57,7 @@
             this.btnView.TabIndex = 24;
             this.btnView.Text = "Предварительный просмотр";
             this.btnView.UseVisualStyleBackColor = true;
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // btnSave
             // 
@@ -66,6 +68,7 @@
             this.btnSave.TabIndex = 23;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // dgvMarks
             // 

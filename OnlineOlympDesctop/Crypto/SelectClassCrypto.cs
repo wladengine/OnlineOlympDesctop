@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EducServLib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,10 +38,20 @@ namespace OnlineOlympDesctop
         {
             int? ClassId = ComboServ.GetComboIdInt(cbClass);
 
-            if (OnOK != null && ClassId.HasValue)
-                OnOK(ClassId.Value);
+            using (OlympVseross2016Entities context = new OlympVseross2016Entities())
+            {
+                int cnt = context.OlympVed.Where(x => x.ClassId == ClassId && x.OlympYear == Util.CampaignYear).Count();
 
-            this.Close();
+                if (cnt == 0)
+                {
+                    if (OnOK != null && ClassId.HasValue)
+                        OnOK(ClassId.Value);
+
+                    this.Close();
+                }
+                else
+                    WinFormsServ.Error("Ведомость на указанный класс уже существует!");
+            }
         }
     }
 }

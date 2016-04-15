@@ -19,7 +19,8 @@ namespace OnlineOlympDesctop
         private Guid? _personInVedId;
         private bool _isModified;
         private string _className;
-        private List<string> lstNumbers;
+        private List<Guid> lstEnteredMarks;
+
 
         public EnterMarks(Guid? gPersInVedId)
         {
@@ -65,8 +66,9 @@ namespace OnlineOlympDesctop
         private void FillGridMarks()
         {
             dgvMarks.Columns.Clear();
-            lstNumbers = new List<string>();
-           
+            //lstNumbers = new List<string>();
+            lstEnteredMarks = new List<Guid>();
+
             DataTable examTable = new DataTable();         
 
             DataColumn clm;
@@ -119,10 +121,17 @@ namespace OnlineOlympDesctop
                     newRow["ФИО"] = (pm.Surname + " " ?? "") + (pm.Name ?? "") + (" " + pm.SecondName ?? "");
                     newRow["Шифр"] = pm.CryptNumber;
                     newRow["Номер задания"] = pm.TaskNumber;
-                    newRow["Баллы"] = pm.Mark;
+                    if (pm.Mark.HasValue && !Util.IsPasha())
+                    {
+                        newRow["Баллы"] = "<значение уже введено>";
+                        lstEnteredMarks.Add(pm.Id);
+                    }
+                    else
+                        newRow["Баллы"] = pm.Mark;
+
                     examTable.Rows.Add(newRow);
 
-                    lstNumbers.Add(pm.CryptNumber);
+                    //lstNumbers.Add(pm.CryptNumber);
                 }
 
                 DataView dv = new DataView(examTable);
@@ -138,9 +147,10 @@ namespace OnlineOlympDesctop
                 dgvMarks.Columns["Шифр"].SortMode = DataGridViewColumnSortMode.NotSortable;
                 dgvMarks.Columns["Баллы"].SortMode = DataGridViewColumnSortMode.NotSortable;
                 dgvMarks.Columns["Номер задания"].SortMode = DataGridViewColumnSortMode.NotSortable;
+
                 dgvMarks.Update();
             }
-        }  
+        }
 
         private bool SaveMarks()
         {            
@@ -155,13 +165,16 @@ namespace OnlineOlympDesctop
                         {
                             string CryptNumber = dgvMarks["Шифр", i].Value.ToString();
                             Guid PersInVedMarkId = new Guid(dgvMarks["Id", i].Value.ToString());
-                            
+
+                            if (lstEnteredMarks.Contains(PersInVedMarkId))
+                                continue;
+
                             if (dgvMarks["Баллы", i].Value != null)
                                 mark = dgvMarks["Баллы", i].Value.ToString().Trim();
 
                             decimal? dUpdatedMark;
                             decimal dMark;
-                                                        
+    
                             if (string.IsNullOrEmpty(mark))
                                 dUpdatedMark = null;
                             else if (decimal.TryParse(mark, out dMark) && dMark >= 0 && dMark < 101)
@@ -183,11 +196,14 @@ namespace OnlineOlympDesctop
                         }
 
                         transaction.Complete();
-                        return true;
                     }
                 }
-            }
+                MessageBox.Show("Оценки успешно сохранены");
+                this.Close();
 
+                Util.OpenSelectVedWindow();
+                return true;
+            }
             catch (Exception exc)
             {
                 WinFormsServ.Error("Ошибка сохранения данных: \n", exc);

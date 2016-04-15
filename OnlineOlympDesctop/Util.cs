@@ -658,6 +658,11 @@ namespace OnlineOlympDesctop
             }
         }
 
+        public static void OpenSelectVedWindow()
+        {
+            new SelectVed().Show();
+        }
+
         internal static bool IsOwner()
         {
             List<string> lstOwners = new List<string>() { "v.chikhira", "st021085" };
@@ -666,11 +671,28 @@ namespace OnlineOlympDesctop
         }
         internal static bool IsPasha()
         {
-            return false;
+            return IsRoleMember("Pasha");
         }
         internal static bool IsCryptoMain()
         {
-            return false;
+            return IsRoleMember("CryptoMain");
+        }
+        internal static bool IsRoleMember(string roleName)
+        {
+            try
+            {
+                using (OlympVseross2016Entities context = new OlympVseross2016Entities())
+                {
+                    ObjectParameter entId = new ObjectParameter("result", typeof(bool));
+                    context.RoleMember(roleName, entId);
+
+                    return Convert.ToBoolean(entId.Value);
+                }
+            }
+            catch 
+            { 
+                return false;
+            }
         }
     }
 }

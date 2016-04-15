@@ -114,7 +114,8 @@
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.label1);
             this.Name = "SelectVed";
-            this.Text = "SelectVed";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Ввод оценок";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

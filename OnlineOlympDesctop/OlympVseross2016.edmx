@@ -212,6 +212,10 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="RoleMember" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleName" Type="nvarchar" Mode="In" />
+          <Parameter Name="result" Type="bit" Mode="InOut" />
+        </Function>
         <EntityContainer Name="OlympVseross2016ModelStoreContainer">
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocumentType" EntityType="Self.DocumentType" Schema="dbo" store:Type="Tables" />
@@ -369,6 +373,10 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
             <End Role="PersonInOlympVedMark" EntitySet="PersonInOlympVedMark" />
           </AssociationSet>
           <EntitySet Name="extRatingList" EntityType="OlympVseross2016Model.extRatingList" />
+          <FunctionImport Name="RoleMember">
+            <Parameter Name="roleName" Mode="In" Type="String" />
+            <Parameter Name="result" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="OlympVed">
           <Key>
@@ -656,6 +664,7 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RoleMember" FunctionName="OlympVseross2016Model.Store.RoleMember" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

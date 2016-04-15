@@ -122,6 +122,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dgvMarks);
             this.Name = "EnterMarks";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ввод оценок";
             ((System.ComponentModel.ISupportInitialize)(this.dgvMarks)).EndInit();
             this.ResumeLayout(false);

@@ -18,6 +18,7 @@ namespace OnlineOlympDesctop
         public SelectVed()
         {
             InitializeComponent();
+            this.MdiParent = Util.MainForm;
             InitControls();
         }
 

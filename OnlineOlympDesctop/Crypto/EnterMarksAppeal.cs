@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using System.Windows.Forms;
 
-namespace OnlineOlympDesctop.Card
+namespace OnlineOlympDesctop
 {
     public partial class EnterMarksAppeal : Form
     {
@@ -18,6 +18,7 @@ namespace OnlineOlympDesctop.Card
         private bool _isModified;
         private string _className;
         private List<string> lstNumbers;
+        public event Action OnSaved;
 
         public EnterMarksAppeal(Guid? gPersInVedId)
         {
@@ -85,6 +86,7 @@ namespace OnlineOlympDesctop.Card
 
             clm = new DataColumn();
             clm.ColumnName = "Баллы";
+            clm.ReadOnly = true;
             examTable.Columns.Add(clm);
 
             clm = new DataColumn();
@@ -146,11 +148,10 @@ namespace OnlineOlympDesctop.Card
                         string mark = null;
                         for (int i = 0; i < dgvMarks.Rows.Count; i++)
                         {
-                            string CryptNumber = dgvMarks["Шифр", i].Value.ToString();
                             Guid PersInVedMarkId = new Guid(dgvMarks["Id", i].Value.ToString());
-                            
-                            if (dgvMarks["Баллы", i].Value != null)
-                                mark = dgvMarks["Баллы", i].Value.ToString().Trim();
+
+                            if (dgvMarks["Баллы (апелляция)", i].Value != null)
+                                mark = dgvMarks["Баллы (апелляция)", i].Value.ToString().Trim();
 
                             decimal? dUpdatedMark;
                             decimal dMark;
@@ -167,18 +168,24 @@ namespace OnlineOlympDesctop.Card
                             }
 
                             var eMark = context.PersonInOlympVedMark
-                                .Where(x => x.Id == PersInVedMarkId && x.PersonInOlympVed.CryptNumber == CryptNumber)
+                                .Where(x => x.Id == PersInVedMarkId)
                                 .FirstOrDefault();
                             if (eMark != null)
-                                eMark.Mark = dUpdatedMark;
+                                eMark.AppealMark = dUpdatedMark;
 
                             context.SaveChanges();
                         }
 
                         transaction.Complete();
-                        return true;
                     }
                 }
+
+                if (OnSaved != null)
+                    OnSaved();
+
+                this.Close();
+
+                return true;
             }
 
             catch (Exception exc)
@@ -219,7 +226,9 @@ namespace OnlineOlympDesctop.Card
                     _isModified = true;
                     dgvMarks.ReadOnly = false;
                     dgvMarks.Columns["Id"].ReadOnly = true;
-                    dgvMarks.Columns["Шифр"].ReadOnly = true;
+                    dgvMarks.Columns["ФИО"].ReadOnly = true;
+                    dgvMarks.Columns["Номер задания"].ReadOnly = true;
+                    dgvMarks.Columns["Баллы"].ReadOnly = true;
                     return true;
                 }                
             }

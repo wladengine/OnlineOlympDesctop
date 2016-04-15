@@ -40,7 +40,7 @@ namespace OnlineOlympDesctop
 
         private void smiVedAppeal_Click(object sender, EventArgs e)
         {
-
+            new ListSelectPersonForAppeal().Show();
         }
     }
 }

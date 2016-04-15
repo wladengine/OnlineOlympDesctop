@@ -238,7 +238,7 @@
             this.Controls.Add(this.dgvList);
             this.Controls.Add(this.lblProtocolNum);
             this.Name = "OlympVedList";
-            this.Text = "OlympVedList";
+            this.Text = "Список ведомостей";
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

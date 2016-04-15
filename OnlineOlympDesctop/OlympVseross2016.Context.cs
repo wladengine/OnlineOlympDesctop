@@ -12,6 +12,8 @@ namespace OnlineOlympDesctop
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class OlympVseross2016Entities : DbContext
     {
@@ -35,5 +37,14 @@ namespace OnlineOlympDesctop
         public virtual DbSet<SchoolClass_local> SchoolClass { get; set; }
         public virtual DbSet<Sex_local> Sex { get; set; }
         public virtual DbSet<extRatingList> extRatingList { get; set; }
+    
+        public virtual int RoleMember(string roleName, ObjectParameter result)
+        {
+            var roleNameParameter = roleName != null ?
+                new ObjectParameter("roleName", roleName) :
+                new ObjectParameter("roleName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RoleMember", roleNameParameter, result);
+        }
     }
 }

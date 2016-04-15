@@ -137,6 +137,12 @@
     <Compile Include="Card\PersonCard.Designer.cs">
       <DependentUpon>PersonCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Crypto\ListSelectPersonForAppeal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crypto\ListSelectPersonForAppeal.Designer.cs">
+      <DependentUpon>ListSelectPersonForAppeal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Crypto\SelectClassCrypto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -298,6 +304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Card\PersonCard.resx">
       <DependentUpon>PersonCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crypto\ListSelectPersonForAppeal.resx">
+      <DependentUpon>ListSelectPersonForAppeal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Crypto\SelectClassCrypto.resx">
       <DependentUpon>SelectClassCrypto.cs</DependentUpon>

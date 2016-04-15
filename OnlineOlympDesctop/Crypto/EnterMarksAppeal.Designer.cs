@@ -1,4 +1,4 @@
-﻿namespace OnlineOlympDesctop.Card
+﻿namespace OnlineOlympDesctop
 {
     partial class EnterMarksAppeal
     {
@@ -68,6 +68,7 @@
             this.btnCancel.TabIndex = 40;
             this.btnCancel.Text = "Закрыть";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnView
             // 
@@ -78,6 +79,7 @@
             this.btnView.TabIndex = 39;
             this.btnView.Text = "Предварительный просмотр";
             this.btnView.UseVisualStyleBackColor = true;
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // btnSave
             // 
@@ -88,6 +90,7 @@
             this.btnSave.TabIndex = 38;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // dgvMarks
             // 
@@ -119,6 +122,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dgvMarks);
             this.Name = "EnterMarksAppeal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EnterMarksAppeal";
             ((System.ComponentModel.ISupportInitialize)(this.dgvMarks)).EndInit();
             this.ResumeLayout(false);

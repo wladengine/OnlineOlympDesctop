@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chbDontShowHidden = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cbClass = new System.Windows.Forms.ComboBox();
             this.tbFIO = new System.Windows.Forms.TextBox();
@@ -46,7 +47,6 @@
             this.btnParticipantAdd = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.lblCount = new System.Windows.Forms.Label();
-            this.chbDontShowHidden = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -74,6 +74,19 @@
             this.groupBox1.Size = new System.Drawing.Size(796, 136);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // chbDontShowHidden
+            // 
+            this.chbDontShowHidden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chbDontShowHidden.AutoSize = true;
+            this.chbDontShowHidden.Checked = true;
+            this.chbDontShowHidden.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbDontShowHidden.Location = new System.Drawing.Point(637, 112);
+            this.chbDontShowHidden.Name = "chbDontShowHidden";
+            this.chbDontShowHidden.Size = new System.Drawing.Size(150, 17);
+            this.chbDontShowHidden.TabIndex = 10;
+            this.chbDontShowHidden.Text = "Не отображать скрытых";
+            this.chbDontShowHidden.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -217,6 +230,7 @@
             // 
             // btnParticipantAdd
             // 
+            this.btnParticipantAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnParticipantAdd.Location = new System.Drawing.Point(655, 535);
             this.btnParticipantAdd.Name = "btnParticipantAdd";
             this.btnParticipantAdd.Size = new System.Drawing.Size(159, 23);
@@ -244,19 +258,6 @@
             this.lblCount.Size = new System.Drawing.Size(13, 13);
             this.lblCount.TabIndex = 3;
             this.lblCount.Text = "0";
-            // 
-            // chbDontShowHidden
-            // 
-            this.chbDontShowHidden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chbDontShowHidden.AutoSize = true;
-            this.chbDontShowHidden.Checked = true;
-            this.chbDontShowHidden.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbDontShowHidden.Location = new System.Drawing.Point(637, 112);
-            this.chbDontShowHidden.Name = "chbDontShowHidden";
-            this.chbDontShowHidden.Size = new System.Drawing.Size(150, 17);
-            this.chbDontShowHidden.TabIndex = 10;
-            this.chbDontShowHidden.Text = "Не отображать скрытых";
-            this.chbDontShowHidden.UseVisualStyleBackColor = true;
             // 
             // ParticipantList
             // 

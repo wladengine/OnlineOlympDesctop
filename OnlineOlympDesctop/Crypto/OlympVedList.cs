@@ -485,7 +485,6 @@ namespace OnlineOlympDesctop
                             foreach (var drr in dsPersons)
                             {
                                 string FIO = (drr.Surname + " " ?? "") + (drr.Name ?? "") + (" " + drr.SecondName ?? "");
-                                string text = FIO + "\n" + className;
 
                                 Barcode128 barcode1 = new Barcode128();
                                 barcode1.Code = ClassNum.ToString("D2") + "==" + drr.CryptNumber + "-";
@@ -500,39 +499,45 @@ namespace OnlineOlympDesctop
                                 iTextSharp.text.Image img1 = barcode1.CreateImageWithBarcode(cb, null, null);
                                 img1.ScaleAbsolute(80f, 60f);
 
-                                PdfPTable ptPl = new PdfPTable(1);
                                 float[] hwh = { pgW };
-                                ptPl.SetWidthPercentage(hwh, PageSize.A4);
-
-                                PdfPCell clPlText = new PdfPCell(new Phrase(text, new iTextSharp.text.Font(bfTimes, fontsize)));
-                                clPlText.HorizontalAlignment = iTextSharp.text.Rectangle.ALIGN_CENTER;
-                                clPlText.PaddingBottom = 2;
-                                clPlText.PaddingTop = 2;
-                                clPlText.Border = iTextSharp.text.Rectangle.NO_BORDER;
-
-                                PdfPCell clPlBarc = new PdfPCell();
-                                clPlBarc.AddElement(img1);
-                                clPlBarc.HorizontalAlignment = iTextSharp.text.Rectangle.ALIGN_CENTER;
-                                clPlBarc.PaddingTop = 1;
-                                clPlBarc.PaddingLeft = 40;
-                                clPlBarc.Border = iTextSharp.text.Rectangle.NO_BORDER;
-
-                                ptPl.AddCell(clPlText);
-                                ptPl.AddCell(clPlBarc);
-
-                                PdfPCell pcell = new PdfPCell(ptPl);
-                                pcell.PaddingTop = 6;
-                                pcell.PaddingBottom = 6;
-                                pcell.PaddingLeft = 6;
-                                pcell.PaddingRight = 6;
-                                pcell.FixedHeight = 100;
-                                pcell.Border = iTextSharp.text.Rectangle.NO_BORDER;
-
-                                t.AddCell(pcell);
-
-                                PdfPCell pcell1;
+                                
                                 for (int task = 1; task <= 8; task++)
                                 {
+                                    int d = (task + 4) / 4;
+                                    string text = FIO + "\n" + className + " (день " + d + "-й)";
+
+                                    if (task % 4 == 1)
+                                    {
+                                        PdfPTable ptPl1 = new PdfPTable(1);
+                                        ptPl1.SetWidthPercentage(hwh, PageSize.A4);
+
+                                        PdfPCell clPlText = new PdfPCell(new Phrase(text, new iTextSharp.text.Font(bfTimes, fontsize)));
+                                        clPlText.HorizontalAlignment = iTextSharp.text.Rectangle.ALIGN_CENTER;
+                                        clPlText.PaddingBottom = 2;
+                                        clPlText.PaddingTop = 2;
+                                        clPlText.Border = iTextSharp.text.Rectangle.NO_BORDER;
+
+                                        PdfPCell clPlBarc = new PdfPCell();
+                                        clPlBarc.AddElement(img1);
+                                        clPlBarc.HorizontalAlignment = iTextSharp.text.Rectangle.ALIGN_CENTER;
+                                        clPlBarc.PaddingTop = 1;
+                                        clPlBarc.PaddingLeft = 40;
+                                        clPlBarc.Border = iTextSharp.text.Rectangle.NO_BORDER;
+
+                                        ptPl1.AddCell(clPlText);
+                                        ptPl1.AddCell(clPlBarc);
+
+                                        PdfPCell pcell1 = new PdfPCell(ptPl1);
+                                        pcell1.PaddingTop = 6;
+                                        pcell1.PaddingBottom = 6;
+                                        pcell1.PaddingLeft = 6;
+                                        pcell1.PaddingRight = 6;
+                                        pcell1.FixedHeight = 100;
+                                        pcell1.Border = iTextSharp.text.Rectangle.NO_BORDER;
+
+                                        t.AddCell(pcell1);
+                                    }
+
                                     Barcode128 barcode2 = new Barcode128();
                                     string brc_code = ClassNum.ToString("D2") + "==" + drr.CryptNumber + "-" + task.ToString();
                                     barcode2.Code = brc_code;
@@ -542,32 +547,34 @@ namespace OnlineOlympDesctop
 
                                     for (int i = 0; i < cntCells; i++)
                                     {
-                                        ptPl = new PdfPTable(1);
-                                        ptPl.SetWidthPercentage(hwh, PageSize.A4);
+                                        PdfPTable ptPl2 = new PdfPTable(1);
+                                        ptPl2.SetWidthPercentage(hwh, PageSize.A4);
 
-                                        clPlText = new PdfPCell();
-                                        clPlText.AddElement(img2);
-                                        clPlText.PaddingLeft = 40;
-                                        clPlText.PaddingRight = 40;
-                                        clPlText.PaddingTop = 20;
-                                        clPlText.Border = iTextSharp.text.Rectangle.NO_BORDER;
+                                        PdfPCell clPlText2 = new PdfPCell();
+                                        clPlText2.AddElement(img2);
+                                        clPlText2.PaddingLeft = 40;
+                                        clPlText2.PaddingRight = 40;
+                                        clPlText2.PaddingTop = 20;
+                                        clPlText2.Border = iTextSharp.text.Rectangle.NO_BORDER;
 
-                                        clPlBarc = new PdfPCell(new Phrase(brc_code, new iTextSharp.text.Font(bfTimes, fontsize)));
-                                        clPlBarc.HorizontalAlignment = iTextSharp.text.Rectangle.ALIGN_CENTER;
-                                        clPlBarc.PaddingTop = 1;
-                                        clPlBarc.Border = iTextSharp.text.Rectangle.NO_BORDER;
+                                        //подписываем снизу баркод (если понадобится убрать, то уберём)
+                                        PdfPCell clPlBarc2 = new PdfPCell(new Phrase(brc_code, new iTextSharp.text.Font(bfTimes, fontsize)));
+                                        clPlBarc2.HorizontalAlignment = iTextSharp.text.Rectangle.ALIGN_CENTER;
+                                        clPlBarc2.PaddingTop = 1;
+                                        clPlBarc2.Border = iTextSharp.text.Rectangle.NO_BORDER;
 
-                                        ptPl.AddCell(clPlText);
-                                        ptPl.AddCell(clPlBarc);
+                                        ptPl2.AddCell(clPlText2);
+                                        ptPl2.AddCell(clPlBarc2);
 
-                                        pcell1 = new PdfPCell(ptPl);
-                                        pcell1.FixedHeight = 100;
-                                        pcell1.Border = iTextSharp.text.Rectangle.NO_BORDER;
-                                        t.AddCell(pcell1);
+                                        PdfPCell pcell2 = new PdfPCell(ptPl2);
+                                        pcell2.FixedHeight = 100;
+                                        pcell2.Border = iTextSharp.text.Rectangle.NO_BORDER;
+                                        t.AddCell(pcell2);
                                     }
                                 }
                             }
 
+                            //заполняем остатки таблицы пустыми ячейками
                             for (int i = 0; i < 3 - ost; i++)
                             {
                                 PdfPCell pc = new PdfPCell();

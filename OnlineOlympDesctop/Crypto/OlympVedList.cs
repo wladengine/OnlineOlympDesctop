@@ -557,7 +557,7 @@ namespace OnlineOlympDesctop
                                         clPlText2.PaddingTop = 20;
                                         clPlText2.Border = iTextSharp.text.Rectangle.NO_BORDER;
 
-                                        //подписываем снизу баркод (если понадобится убрать, то уберём)
+                                        //подписываем снизу текст баркода (если понадобится убрать, то уберём)
                                         PdfPCell clPlBarc2 = new PdfPCell(new Phrase(brc_code, new iTextSharp.text.Font(bfTimes, fontsize)));
                                         clPlBarc2.HorizontalAlignment = iTextSharp.text.Rectangle.ALIGN_CENTER;
                                         clPlBarc2.PaddingTop = 1;

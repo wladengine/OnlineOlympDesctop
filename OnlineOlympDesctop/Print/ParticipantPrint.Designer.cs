@@ -55,6 +55,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tbFilename = new System.Windows.Forms.TextBox();
             this.cbOpenFile = new System.Windows.Forms.CheckBox();
+            this.chbExcludeHided = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -246,6 +247,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.chbExcludeHided);
             this.groupBox3.Controls.Add(this.cbOpenFile);
             this.groupBox3.Controls.Add(this.tbFilename);
             this.groupBox3.Controls.Add(this.label7);
@@ -346,6 +348,18 @@
             this.cbOpenFile.Text = "Открыть по готовности";
             this.cbOpenFile.UseVisualStyleBackColor = true;
             // 
+            // chbExcludeHided
+            // 
+            this.chbExcludeHided.AutoSize = true;
+            this.chbExcludeHided.Checked = true;
+            this.chbExcludeHided.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbExcludeHided.Location = new System.Drawing.Point(104, 137);
+            this.chbExcludeHided.Name = "chbExcludeHided";
+            this.chbExcludeHided.Size = new System.Drawing.Size(129, 17);
+            this.chbExcludeHided.TabIndex = 8;
+            this.chbExcludeHided.Text = "Исключить скрытых";
+            this.chbExcludeHided.UseVisualStyleBackColor = true;
+            // 
             // ParticipantPrint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -401,6 +415,7 @@
         private System.Windows.Forms.CheckBox cbOpenFile;
         private System.Windows.Forms.TextBox tbFilename;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox chbExcludeHided;
 
     }
 }

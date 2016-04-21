@@ -441,20 +441,32 @@ namespace OnlineOlympDesctop
             table_names = (from DataRow rw in tbl.Rows select rw.Field<string>("TableName")).Distinct().ToList().Union(from DataRow rw in tbl_order.Rows select rw.Field<string>("TableName")).Distinct().ToList();
             foreach (var x in table_names)
             {
-                if (x.ToLower() != "Participant")
+                if (x.ToLower() != "participant")
                 {
                     resultquery += @" left join dbo." + x + " on " + x + ".Id =" + "Participant." + x + "Id";
                 }
-            }
-
+            } 
             if (table_names.Count == 0)
                 resultquery = GetStandartQuery();
 
             resultquery += " where 1=1 ";
+            if (chbExcludeHided.Checked)
+                resultquery += " and Participant.ishidden=0";
             int? ClassId = ComboServ.GetComboIdInt(cbClass);
             if (ClassId.HasValue)
                 resultquery += " and Participant.ClassId = " + ClassId.Value.ToString();
-            ToExcel(query, Dict);
+
+            if (tbl_order.Rows.Count > 0)
+            {
+                resultquery += " order by ";
+                foreach (DataRow rw in tbl_order.Rows)
+                {
+                    resultquery +=  rw.Field<string>("TableName") + "." + rw.Field<string>("ColumnName") + ",";
+                }
+                resultquery = resultquery.Substring(0, resultquery.Length - 1);
+            }
+
+            ToExcel(resultquery, Dict);
         }
         private void ToExcel (string query, Dictionary <string, object> Dict)
         {
@@ -463,8 +475,8 @@ namespace OnlineOlympDesctop
             try
             {
                 DataTable tbl = Util.MainBD.GetDataTable(query, Dict);
-                //DataGridView dgv1 = new DataGridView();
-                //dgv1.DataSource = tbl;
+                if (tbl.Columns.Contains("Id"))
+                    tbl.Columns.Remove("Id");
 
                 string filenameDate = String.IsNullOrEmpty(tbFilename.Text) ? "Выгрузка " : tbFilename.Text;
                 string filename = Util.TempFolder + filenameDate + ".xlsx";
@@ -481,7 +493,6 @@ namespace OnlineOlympDesctop
                     newFile.Delete();  // ensures we create a new workbook
                     newFile = new System.IO.FileInfo(filename);
                 }
-                byte[] bt;
 
                 using (ExcelPackage doc = new ExcelPackage(newFile))
                 {
@@ -489,7 +500,7 @@ namespace OnlineOlympDesctop
                     int colind = 0;
                     foreach (DataColumn cl in tbl.Columns)
                     {
-                        ws.Cells[++colind,1].Value = cl.ColumnName.ToString();
+                        ws.Cells[1, ++colind].Value = cl.ColumnName.ToString();
                     }
 
                     for (int rwInd = 0; rwInd < tbl.Rows.Count; rwInd++)
@@ -498,13 +509,19 @@ namespace OnlineOlympDesctop
                         for (int colInd = 0; colInd < tbl.Columns.Count; colInd++)
                         {
                             DataColumn col = tbl.Columns[colInd];
-                            ws.Cells[rwInd + 2, colInd + 1].Value = rw[col.ColumnName].ToString();
+                            if (rw[col.ColumnName] is DateTime)
+                            {
+                                if (col.ColumnName.ToLower().Contains("прибыт") || col.ColumnName.ToLower().Contains("отъезд"))
+                                    ws.Cells[rwInd + 2, colInd + 1].Value = ((DateTime)rw[col.ColumnName]).ToShortDateString() + " в "+((DateTime)rw[col.ColumnName]).ToShortTimeString();
+                                else
+                                    ws.Cells[rwInd + 2, colInd + 1].Value = ((DateTime)rw[col.ColumnName]).ToShortDateString();
+                            }
+                            else
+                                ws.Cells[rwInd + 2, colInd + 1].Value = rw[col.ColumnName].ToString();
                         }
                     }
-
                     doc.Save();
                 }
-
                 if (cbOpenFile.Checked)
                     System.Diagnostics.Process.Start(filename);
             }

@@ -36,5 +36,9 @@ namespace OnlineOlympDesctop
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Sex> Sex { get; set; }
         public virtual DbSet<Participant> Participant { get; set; }
+        public virtual DbSet<Columns> Columns { get; set; }
+        public virtual DbSet<PrintList> PrintList { get; set; }
+        public virtual DbSet<PrintListColumns> PrintListColumns { get; set; }
+        public virtual DbSet<PrintListOrder> PrintListOrder { get; set; }
     }
 }

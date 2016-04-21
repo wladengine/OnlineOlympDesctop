@@ -28,7 +28,7 @@ namespace OnlineOlympDesctop
             CampaignYear = DateTime.Now.Year;
 
             string connStr =
-            "Data Source = srveducation; Initial Catalog=OnlineOlympDesctop; Integrated Security=False;User ID=RusLangInet;Password=RusLangInet+Veronika;MultipleActiveResultSets=True; Connect Timeout=300";
+            "Data Source = srveducation; Initial Catalog=OnlineOlymp2016; Integrated Security=False;User ID=RusLangInet;Password=RusLangInet+Veronika;MultipleActiveResultSets=True; Connect Timeout=300";
 
             MainBD = new BDClass(connStr);
 

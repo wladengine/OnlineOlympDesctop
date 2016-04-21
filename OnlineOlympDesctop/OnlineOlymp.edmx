@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="OnlineOlymp2016Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Columns">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ColumnName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ColumnHeader" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TableName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="Id" />
@@ -127,6 +136,31 @@
           <Property Name="Name" Type="nvarchar" MaxLength="150" />
           <Property Name="NameEng" Type="nvarchar" MaxLength="150" />
         </EntityType>
+        <EntityType Name="PrintList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PrintListColumns">
+          <Key>
+            <PropertyRef Name="PrintListId" />
+            <PropertyRef Name="ColumnId" />
+          </Key>
+          <Property Name="PrintListId" Type="int" Nullable="false" />
+          <Property Name="ColumnId" Type="int" Nullable="false" />
+          <Property Name="OrdId" Type="int" />
+        </EntityType>
+        <EntityType Name="PrintListOrder">
+          <Key>
+            <PropertyRef Name="PrintListId" />
+            <PropertyRef Name="ColumnId" />
+          </Key>
+          <Property Name="PrintListId" Type="int" Nullable="false" />
+          <Property Name="ColumnId" Type="int" Nullable="false" />
+          <Property Name="OrdId" Type="int" />
+        </EntityType>
         <EntityType Name="Region">
           <Key>
             <PropertyRef Name="Id" />
@@ -241,6 +275,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="OnlineOlymp2016ModelStoreContainer">
+          <EntitySet Name="Columns" EntityType="Self.Columns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocumentType" EntityType="Self.DocumentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FileType" EntityType="Self.FileType" Schema="dbo" store:Type="Tables" />
@@ -248,6 +283,9 @@
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonFile" EntityType="Self.PersonFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlaceList" EntityType="Self.PlaceList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrintList" EntityType="Self.PrintList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrintListColumns" EntityType="Self.PrintListColumns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrintListOrder" EntityType="Self.PrintListOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SchoolClass" EntityType="Self.SchoolClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
@@ -493,6 +531,10 @@
             <End Role="Sex" EntitySet="Sex" />
             <End Role="Participant" EntitySet="Participant" />
           </AssociationSet>
+          <EntitySet Name="Columns" EntityType="OnlineOlymp2016Model.Columns" />
+          <EntitySet Name="PrintList" EntityType="OnlineOlymp2016Model.PrintList" />
+          <EntitySet Name="PrintListColumns" EntityType="OnlineOlymp2016Model.PrintListColumns" />
+          <EntitySet Name="PrintListOrder" EntityType="OnlineOlymp2016Model.PrintListOrder" />
         </EntityContainer>
         <EntityType Name="Sex">
           <Key>
@@ -600,6 +642,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Columns">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ColumnHeader" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PrintList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PrintListColumns">
+          <Key>
+            <PropertyRef Name="PrintListId" />
+            <PropertyRef Name="ColumnId" />
+          </Key>
+          <Property Name="PrintListId" Type="Int32" Nullable="false" />
+          <Property Name="ColumnId" Type="Int32" Nullable="false" />
+          <Property Name="OrdId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PrintListOrder">
+          <Key>
+            <PropertyRef Name="PrintListId" />
+            <PropertyRef Name="ColumnId" />
+          </Key>
+          <Property Name="PrintListId" Type="Int32" Nullable="false" />
+          <Property Name="ColumnId" Type="Int32" Nullable="false" />
+          <Property Name="OrdId" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -776,6 +852,42 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Columns">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.Columns">
+              <MappingFragment StoreEntitySet="Columns">
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="ColumnHeader" ColumnName="ColumnHeader" />
+                <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrintList">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.PrintList">
+              <MappingFragment StoreEntitySet="PrintList">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrintListColumns">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.PrintListColumns">
+              <MappingFragment StoreEntitySet="PrintListColumns">
+                <ScalarProperty Name="OrdId" ColumnName="OrdId" />
+                <ScalarProperty Name="ColumnId" ColumnName="ColumnId" />
+                <ScalarProperty Name="PrintListId" ColumnName="PrintListId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrintListOrder">
+            <EntityTypeMapping TypeName="OnlineOlymp2016Model.PrintListOrder">
+              <MappingFragment StoreEntitySet="PrintListOrder">
+                <ScalarProperty Name="OrdId" ColumnName="OrdId" />
+                <ScalarProperty Name="ColumnId" ColumnName="ColumnId" />
+                <ScalarProperty Name="PrintListId" ColumnName="PrintListId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

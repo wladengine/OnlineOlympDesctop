@@ -38,6 +38,8 @@
             this.smiCrypto = new System.Windows.Forms.ToolStripMenuItem();
             this.smiSelectVed = new System.Windows.Forms.ToolStripMenuItem();
             this.smiVedAppeal = new System.Windows.Forms.ToolStripMenuItem();
+            this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiPrintList = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +48,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.спискиToolStripMenuItem,
             this.smiVed,
-            this.smiCrypto});
+            this.smiCrypto,
+            this.печатьToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(592, 24);
@@ -114,6 +117,21 @@
             this.smiVedAppeal.Text = "Ведомость для апелляции";
             this.smiVedAppeal.Click += new System.EventHandler(this.smiVedAppeal_Click);
             // 
+            // печатьToolStripMenuItem
+            // 
+            this.печатьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.smiPrintList});
+            this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
+            this.печатьToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.печатьToolStripMenuItem.Text = "Печать";
+            // 
+            // smiPrintList
+            // 
+            this.smiPrintList.Name = "smiPrintList";
+            this.smiPrintList.Size = new System.Drawing.Size(254, 22);
+            this.smiPrintList.Text = "Основные шаблоны участников";
+            this.smiPrintList.Click += new System.EventHandler(this.smiPrintList_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -144,6 +162,8 @@
         private System.Windows.Forms.ToolStripMenuItem smiCrypto;
         private System.Windows.Forms.ToolStripMenuItem smiSelectVed;
         private System.Windows.Forms.ToolStripMenuItem smiVedAppeal;
+        private System.Windows.Forms.ToolStripMenuItem печатьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem smiPrintList;
     }
 }
 

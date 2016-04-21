@@ -24,6 +24,10 @@
         <AssociationConnector Association="OnlineOlymp2016Model.FK_Participant_DocumentType" />
         <AssociationConnector Association="OnlineOlymp2016Model.FK_Participant_SchoolClass" />
         <AssociationConnector Association="OnlineOlymp2016Model.FK_Participant_Sex" />
+        <EntityTypeShape EntityType="OnlineOlymp2016Model.Columns" Width="1.5" PointX="10.375" PointY="0.75" />
+        <EntityTypeShape EntityType="OnlineOlymp2016Model.PrintList" Width="1.5" PointX="10.375" PointY="3.75" />
+        <EntityTypeShape EntityType="OnlineOlymp2016Model.PrintListColumns" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="OnlineOlymp2016Model.PrintListOrder" Width="1.5" PointX="7.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -47,8 +47,10 @@
             this.btnParticipantAdd = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.lblCount = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -69,9 +71,9 @@
             this.groupBox1.Controls.Add(this.cbRegion);
             this.groupBox1.Controls.Add(this.cbCountry);
             this.groupBox1.Controls.Add(this.btnUpdate);
-            this.groupBox1.Location = new System.Drawing.Point(18, 12);
+            this.groupBox1.Location = new System.Drawing.Point(13, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(796, 136);
+            this.groupBox1.Size = new System.Drawing.Size(796, 116);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -81,7 +83,7 @@
             this.chbDontShowHidden.AutoSize = true;
             this.chbDontShowHidden.Checked = true;
             this.chbDontShowHidden.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbDontShowHidden.Location = new System.Drawing.Point(637, 112);
+            this.chbDontShowHidden.Location = new System.Drawing.Point(637, 93);
             this.chbDontShowHidden.Name = "chbDontShowHidden";
             this.chbDontShowHidden.Size = new System.Drawing.Size(150, 17);
             this.chbDontShowHidden.TabIndex = 10;
@@ -108,7 +110,7 @@
             // 
             // tbFIO
             // 
-            this.tbFIO.Location = new System.Drawing.Point(93, 110);
+            this.tbFIO.Location = new System.Drawing.Point(93, 91);
             this.tbFIO.Name = "tbFIO";
             this.tbFIO.Size = new System.Drawing.Size(306, 20);
             this.tbFIO.TabIndex = 7;
@@ -117,7 +119,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(50, 113);
+            this.label4.Location = new System.Drawing.Point(50, 94);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 6;
@@ -204,7 +206,7 @@
             // btnUpdate
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.Location = new System.Drawing.Point(637, 88);
+            this.btnUpdate.Location = new System.Drawing.Point(637, 69);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(153, 23);
             this.btnUpdate.TabIndex = 0;
@@ -221,17 +223,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv.Location = new System.Drawing.Point(18, 154);
+            this.dgv.Location = new System.Drawing.Point(13, 125);
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
-            this.dgv.Size = new System.Drawing.Size(796, 375);
+            this.dgv.Size = new System.Drawing.Size(796, 400);
             this.dgv.TabIndex = 1;
             this.dgv.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellDoubleClick);
             // 
             // btnParticipantAdd
             // 
             this.btnParticipantAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnParticipantAdd.Location = new System.Drawing.Point(655, 535);
+            this.btnParticipantAdd.Location = new System.Drawing.Point(650, 531);
             this.btnParticipantAdd.Name = "btnParticipantAdd";
             this.btnParticipantAdd.Size = new System.Drawing.Size(159, 23);
             this.btnParticipantAdd.TabIndex = 2;
@@ -243,7 +245,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 545);
+            this.label6.Location = new System.Drawing.Point(10, 541);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 3;
@@ -253,30 +255,43 @@
             // 
             this.lblCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblCount.AutoSize = true;
-            this.lblCount.Location = new System.Drawing.Point(61, 545);
+            this.lblCount.Location = new System.Drawing.Point(56, 541);
             this.lblCount.Name = "lblCount";
             this.lblCount.Size = new System.Drawing.Size(13, 13);
             this.lblCount.TabIndex = 3;
             this.lblCount.Text = "0";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.lblCount);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.btnParticipantAdd);
+            this.panel1.Controls.Add(this.dgv);
+            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Location = new System.Drawing.Point(5, 4);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(817, 558);
+            this.panel1.TabIndex = 4;
             // 
             // ParticipantList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(827, 569);
-            this.Controls.Add(this.lblCount);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.btnParticipantAdd);
-            this.Controls.Add(this.dgv);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(843, 584);
             this.Name = "ParticipantList";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Список участников олимпиады";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -301,5 +316,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblCount;
         private System.Windows.Forms.CheckBox chbDontShowHidden;
+        private System.Windows.Forms.Panel panel1;
     }
 }

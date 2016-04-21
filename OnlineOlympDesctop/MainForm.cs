@@ -42,5 +42,10 @@ namespace OnlineOlympDesctop
         {
             new ListSelectPersonForAppeal().Show();
         }
+
+        private void smiPrintList_Click(object sender, EventArgs e)
+        {
+            new ParticipantPrint().Show();
+        }
     }
 }

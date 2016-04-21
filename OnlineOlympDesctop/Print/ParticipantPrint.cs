@@ -535,7 +535,7 @@ namespace OnlineOlympDesctop
             return @"select distinct 
                        Surname as 'Фамилия'
                       , Name as 'Имя'
-                      , SecondNamename as 'Отчество'
+                      , SecondName as 'Отчество'
                       , BirthDate as 'Дата рождения'
                   FROM dbo.Participant ";
         }

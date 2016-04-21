@@ -463,16 +463,16 @@ namespace OnlineOlympDesctop
             try
             {
                 DataTable tbl = Util.MainBD.GetDataTable(query, Dict);
-                DataGridView dgv1 = new DataGridView();
-                dgv1.DataSource = tbl;
+                //DataGridView dgv1 = new DataGridView();
+                //dgv1.DataSource = tbl;
 
                 string filenameDate = String.IsNullOrEmpty(tbFilename.Text) ? "Выгрузка " : tbFilename.Text;
-                string filename = Util.TempFolder + filenameDate + ".xls";
+                string filename = Util.TempFolder + filenameDate + ".xlsx";
 
                 int fileindex = 1;
                 while (File.Exists(filename))
                 {
-                    filename = Util.TempFolder + filenameDate + "(" + fileindex + ")" + ".xls";
+                    filename = Util.TempFolder + filenameDate + "(" + fileindex + ")" + ".xlsx";
                     fileindex++;
                 }
                 System.IO.FileInfo newFile = new System.IO.FileInfo(filename);
@@ -487,20 +487,23 @@ namespace OnlineOlympDesctop
                 {
                     ExcelWorksheet ws = doc.Workbook.Worksheets.Add("list");
                     int colind = 0;
-                    foreach (DataGridViewColumn cl in dgv1.Columns)
+                    foreach (DataColumn cl in tbl.Columns)
                     {
-                        ws.Cells[++colind,1].Value = cl.Name.ToString();
+                        ws.Cells[++colind,1].Value = cl.ColumnName.ToString();
                     }
-                    foreach (DataGridViewRow rw in dgv1.Rows)
+
+                    for (int rwInd = 0; rwInd < tbl.Rows.Count; rwInd++)
                     {
-                        foreach (DataGridViewCell cell in rw.Cells)
+                        DataRow rw = tbl.Rows[rwInd];
+                        for (int colInd = 0; colInd < tbl.Columns.Count; colInd++)
                         {
-                            ws.Cells[rw.Index + 2, cell.ColumnIndex + 1].Value = cell.Value.ToString();
+                            DataColumn col = tbl.Columns[colInd];
+                            ws.Cells[rwInd + 2, colInd + 1].Value = rw[col.ColumnName].ToString();
                         }
                     }
-                    bt = doc.GetAsByteArray();
+
+                    doc.Save();
                 }
-                File.WriteAllText(filename, bt.ToString(), Encoding.UTF8);
 
                 if (cbOpenFile.Checked)
                     System.Diagnostics.Process.Start(filename);

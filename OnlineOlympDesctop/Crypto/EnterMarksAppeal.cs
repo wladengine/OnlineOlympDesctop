@@ -153,13 +153,13 @@ namespace OnlineOlympDesctop
                             if (dgvMarks["Баллы (апелляция)", i].Value != null)
                                 mark = dgvMarks["Баллы (апелляция)", i].Value.ToString().Trim();
 
-                            decimal? dUpdatedMark;
-                            decimal dMark;
+                            int? iUpdatedMark;
+                            int iMark;
                                                         
                             if (string.IsNullOrEmpty(mark))
-                                dUpdatedMark = null;
-                            else if (decimal.TryParse(mark, out dMark) && dMark >= 0 && dMark < 101)
-                                dUpdatedMark = dMark;
+                                iUpdatedMark = null;
+                            else if (int.TryParse(mark, out iMark) && iMark >= 0 && iMark < 101)
+                                iUpdatedMark = iMark;
                             else
                             {
                                 dgvMarks.CurrentCell = dgvMarks["Баллы", i];
@@ -171,7 +171,7 @@ namespace OnlineOlympDesctop
                                 .Where(x => x.Id == PersInVedMarkId)
                                 .FirstOrDefault();
                             if (eMark != null)
-                                eMark.AppealMark = dUpdatedMark;
+                                eMark.AppealMark = iUpdatedMark;
 
                             context.SaveChanges();
                         }

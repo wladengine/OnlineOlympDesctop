@@ -17,8 +17,8 @@ namespace OnlineOlympDesctop
         public System.Guid Id { get; set; }
         public System.Guid PersonInOlympVedId { get; set; }
         public int TaskNumber { get; set; }
-        public Nullable<decimal> Mark { get; set; }
-        public Nullable<decimal> AppealMark { get; set; }
+        public Nullable<int> Mark { get; set; }
+        public Nullable<int> AppealMark { get; set; }
     
         public virtual PersonInOlympVed PersonInOlympVed { get; set; }
     }

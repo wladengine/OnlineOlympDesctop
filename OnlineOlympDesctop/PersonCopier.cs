@@ -14,7 +14,7 @@ namespace OnlineOlympDesctop
             using (OnlineOlymp2016Entities online_context = new OnlineOlymp2016Entities())
             using (OlympVseross2016Entities context = new OlympVseross2016Entities())
             {
-                var lstPersonsOnlineIds = online_context.Participant.Select(x => x.Id).ToList();
+                var lstPersonsOnlineIds = online_context.Participant.Where(x => !x.IsHidden).Select(x => x.Id).ToList();
                 var lstPersonsWorkBaseIds = context.Person.Select(x => x.Id).ToList();
 
                 var lstDiff = lstPersonsOnlineIds.Except(lstPersonsWorkBaseIds).ToList();

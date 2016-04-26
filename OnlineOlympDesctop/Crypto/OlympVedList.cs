@@ -467,7 +467,10 @@ namespace OnlineOlympDesctop
                                      Pers.SecondName,
                                      PersInVed.CryptNumber,
                                  }).ToList()
-                                 .OrderBy(x => x.Id)
+                                 .OrderBy(x => x.Surname)
+                                 .ThenBy(x => x.Name)
+                                 .ThenBy(x => x.SecondName)
+                                 .ThenBy(x => x.Id)
                                  .ToList();
                                 
                             PdfPTable t = new PdfPTable(3);
@@ -735,6 +738,9 @@ namespace OnlineOlympDesctop
                          })
                          .ToList()
                          .OrderBy(x => x.Place)
+                         .ThenBy(x => x.Surname)
+                         .ThenBy(x => x.Name)
+                         .ThenBy(x => x.SecondName)
                          .Select(x => new
                          {
                              x.Surname,

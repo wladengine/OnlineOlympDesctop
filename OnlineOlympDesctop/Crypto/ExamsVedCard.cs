@@ -87,6 +87,7 @@ namespace OnlineOlympDesctop
                     (from Pers in context.Person
                      where Pers.SchoolClassId == classId
                      && !lstIds.Contains(Pers.Id)
+                     
                      select new
                      {
                          Pers.Id,

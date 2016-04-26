@@ -86,6 +86,7 @@
             this.smiVed.Name = "smiVed";
             this.smiVed.Size = new System.Drawing.Size(79, 20);
             this.smiVed.Text = "Ведомости";
+            this.smiVed.Visible = false;
             // 
             // smiOlympVedList
             // 
@@ -102,6 +103,7 @@
             this.smiCrypto.Name = "smiCrypto";
             this.smiCrypto.Size = new System.Drawing.Size(92, 20);
             this.smiCrypto.Text = "Шифрование";
+            this.smiCrypto.Visible = false;
             // 
             // smiSelectVed
             // 

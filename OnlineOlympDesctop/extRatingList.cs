@@ -17,7 +17,7 @@ namespace OnlineOlympDesctop
         public System.Guid OlympVedId { get; set; }
         public Nullable<System.Guid> PersonId { get; set; }
         public Nullable<long> Place { get; set; }
-        public Nullable<decimal> TotalMark { get; set; }
+        public Nullable<int> TotalMark { get; set; }
         public string CryptNumber { get; set; }
     }
 }

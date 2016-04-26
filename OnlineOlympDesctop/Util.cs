@@ -677,6 +677,10 @@ namespace OnlineOlympDesctop
         {
             return IsRoleMember("CryptoMain");
         }
+        internal static bool IsCrypto()
+        {
+            return IsRoleMember("Crypto");
+        }
         internal static bool IsRoleMember(string roleName)
         {
             try

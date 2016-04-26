@@ -66,8 +66,8 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonInOlympVedId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="TaskNumber" Type="int" Nullable="false" />
-          <Property Name="Mark" Type="decimal" Precision="5" Scale="2" />
-          <Property Name="AppealMark" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Mark" Type="int" />
+          <Property Name="AppealMark" Type="int" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
@@ -102,7 +102,7 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
           <Property Name="PersonId" Type="uniqueidentifier" />
           <Property Name="CryptNumber" Type="nvarchar" MaxLength="5" />
           <Property Name="Place" Type="bigint" />
-          <Property Name="TotalMark" Type="decimal" Precision="38" Scale="2" />
+          <Property Name="TotalMark" Type="int" />
         </EntityType>
         <Association Name="FK_OlympVed_SchoolClass">
           <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="1" />
@@ -201,7 +201,9 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PersonInOlympVedMark_PersonInOlympVed">
-          <End Role="PersonInOlympVed" Type="Self.PersonInOlympVed" Multiplicity="1" />
+          <End Role="PersonInOlympVed" Type="Self.PersonInOlympVed" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PersonInOlympVedMark" Type="Self.PersonInOlympVedMark" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PersonInOlympVed">
@@ -322,8 +324,8 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="PersonInOlympVedId" Type="Guid" Nullable="false" />
           <Property Name="TaskNumber" Type="Int32" Nullable="false" />
-          <Property Name="Mark" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="AppealMark" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Mark" Type="Int32" />
+          <Property Name="AppealMark" Type="Int32" />
           <NavigationProperty Name="PersonInOlympVed" Relationship="OlympVseross2016Model.FK_PersonInOlympVedMark_PersonInOlympVed" FromRole="PersonInOlympVedMark" ToRole="PersonInOlympVed" />
         </EntityType>
         <EntityContainer Name="OlympVseross2016Entities" annotation:LazyLoadingEnabled="true">
@@ -548,7 +550,7 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
           <Property Name="OlympVedId" Type="Guid" Nullable="false" />
           <Property Name="PersonId" Type="Guid" />
           <Property Name="Place" Type="Int64" />
-          <Property Name="TotalMark" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="TotalMark" Type="Int32" />
           <Property Name="CryptNumber" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>

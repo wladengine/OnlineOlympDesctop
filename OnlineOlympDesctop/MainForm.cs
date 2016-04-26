@@ -16,6 +16,29 @@ namespace OnlineOlympDesctop
         {
             InitializeComponent();
             Util.MainForm = this;
+            SetVisibleMenus();
+        }
+
+        private void SetVisibleMenus()
+        {
+            if (Util.IsOwner() || Util.IsPasha())
+            {
+                //меню "Ведомости"
+                smiVed.Visible = true;
+                smiOlympVedList.Visible = true;
+                //Меню шифровалки
+                smiCrypto.Visible = true;
+                smiSelectVed.Visible = true;
+                smiVedAppeal.Visible = true;
+            }
+
+            if (Util.IsCryptoMain() || Util.IsCrypto())
+            {
+                //Меню шифровалки
+                smiCrypto.Visible = true;
+                smiSelectVed.Visible = true;
+                smiVedAppeal.Visible = true;
+            }
         }
 
         private void smiPeronList_Click(object sender, EventArgs e)

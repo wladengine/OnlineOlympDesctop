@@ -35,14 +35,15 @@
             this.smiParticipant = new System.Windows.Forms.ToolStripMenuItem();
             this.smiVed = new System.Windows.Forms.ToolStripMenuItem();
             this.smiOlympVedList = new System.Windows.Forms.ToolStripMenuItem();
-            this.smiDiplomaList = new System.Windows.Forms.ToolStripMenuItem();
             this.smiSetDiploma = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiDiplomaList = new System.Windows.Forms.ToolStripMenuItem();
             this.smiCrypto = new System.Windows.Forms.ToolStripMenuItem();
             this.smiSelectVed = new System.Windows.Forms.ToolStripMenuItem();
             this.smiVedAppeal = new System.Windows.Forms.ToolStripMenuItem();
             this.smiLoadFromExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smiPrintList = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiDiplomaRegBook = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,19 +101,19 @@
             this.smiOlympVedList.Text = "Список ведомостей";
             this.smiOlympVedList.Click += new System.EventHandler(this.smiOlympVedList_Click);
             // 
-            // smiDiplomaList
-            // 
-            this.smiDiplomaList.Name = "smiDiplomaList";
-            this.smiDiplomaList.Size = new System.Drawing.Size(199, 22);
-            this.smiDiplomaList.Text = "Печать дипломов";
-            this.smiDiplomaList.Click += new System.EventHandler(this.smiDiplomaList_Click);
-            // 
             // smiSetDiploma
             // 
             this.smiSetDiploma.Name = "smiSetDiploma";
             this.smiSetDiploma.Size = new System.Drawing.Size(199, 22);
             this.smiSetDiploma.Text = "Назначение дипломов";
             this.smiSetDiploma.Click += new System.EventHandler(this.smiSetDiploma_Click);
+            // 
+            // smiDiplomaList
+            // 
+            this.smiDiplomaList.Name = "smiDiplomaList";
+            this.smiDiplomaList.Size = new System.Drawing.Size(199, 22);
+            this.smiDiplomaList.Text = "Печать дипломов";
+            this.smiDiplomaList.Click += new System.EventHandler(this.smiDiplomaList_Click);
             // 
             // smiCrypto
             // 
@@ -149,7 +150,8 @@
             // печатьToolStripMenuItem
             // 
             this.печатьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.smiPrintList});
+            this.smiPrintList,
+            this.smiDiplomaRegBook});
             this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
             this.печатьToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.печатьToolStripMenuItem.Text = "Печать";
@@ -160,6 +162,13 @@
             this.smiPrintList.Size = new System.Drawing.Size(254, 22);
             this.smiPrintList.Text = "Основные шаблоны участников";
             this.smiPrintList.Click += new System.EventHandler(this.smiPrintList_Click);
+            // 
+            // smiDiplomaRegBook
+            // 
+            this.smiDiplomaRegBook.Name = "smiDiplomaRegBook";
+            this.smiDiplomaRegBook.Size = new System.Drawing.Size(254, 22);
+            this.smiDiplomaRegBook.Text = "Реестр выдачи дипломов";
+            this.smiDiplomaRegBook.Click += new System.EventHandler(this.smiDiplomaRegBook_Click);
             // 
             // MainForm
             // 
@@ -196,6 +205,7 @@
         private System.Windows.Forms.ToolStripMenuItem smiLoadFromExcel;
         private System.Windows.Forms.ToolStripMenuItem smiDiplomaList;
         private System.Windows.Forms.ToolStripMenuItem smiSetDiploma;
+        private System.Windows.Forms.ToolStripMenuItem smiDiplomaRegBook;
     }
 }
 

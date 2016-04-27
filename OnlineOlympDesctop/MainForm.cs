@@ -93,5 +93,10 @@ namespace OnlineOlympDesctop
         {
             new SetDiplomaList().Show();
         }
+
+        private void smiDiplomaRegBook_Click(object sender, EventArgs e)
+        {
+            DiplomaRegBookPrintClass.PrintRegBook();
+        }
     }
 }

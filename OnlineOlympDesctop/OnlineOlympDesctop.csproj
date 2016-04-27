@@ -220,7 +220,6 @@
       <DependentUpon>SetDiplomaList.cs</DependentUpon>
     </Compile>
     <Compile Include="LogicClasses\PacketImporter.cs" />
-    <Compile Include="LogicClasses\PrintDiplomaClass.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -298,6 +297,7 @@
     <Compile Include="PrintListOrder.cs">
       <DependentUpon>OnlineOlymp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Print\DiplomaRegBookPrintClass.cs" />
     <Compile Include="Print\FormSetDiplomaBlankNumber.cs">
       <SubType>Form</SubType>
     </Compile>

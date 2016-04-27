@@ -12,12 +12,48 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" />
         </EntityType>
+        <EntityType Name="DiplomaLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="DocumentType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OlympDiploma">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OlympYear" Type="int" Nullable="false" />
+          <Property Name="OlympSubjectId" Type="int" Nullable="false" />
+          <Property Name="OlympVedId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SchoolClassId" Type="int" Nullable="false" />
+          <Property Name="TotalSum" Type="int" Nullable="false" />
+          <Property Name="Place" Type="int" Nullable="false" />
+          <Property Name="DiplomaLevelId" Type="int" Nullable="false" />
+          <Property Name="DiplomaRegNum" Type="nvarchar" MaxLength="10" />
+          <Property Name="DiplomaDate" Type="date" />
+          <Property Name="BlankNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateAuthor" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OlympResults">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OlympVedId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TotalSum" Type="int" Nullable="false" />
+          <Property Name="Place" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="OlympVed">
           <Key>
@@ -84,6 +120,7 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="IntVal" Type="int" Nullable="false" />
+          <Property Name="PrintDiplomaName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Sex">
           <Key>
@@ -104,6 +141,54 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
           <Property Name="Place" Type="bigint" />
           <Property Name="TotalMark" Type="int" />
         </EntityType>
+        <Association Name="FK_OlympDiploma_DiplomaLevel">
+          <End Role="DiplomaLevel" Type="Self.DiplomaLevel" Multiplicity="1" />
+          <End Role="OlympDiploma" Type="Self.OlympDiploma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiplomaLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympDiploma">
+              <PropertyRef Name="DiplomaLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympDiploma_OlympVed">
+          <End Role="OlympVed" Type="Self.OlympVed" Multiplicity="1" />
+          <End Role="OlympDiploma" Type="Self.OlympDiploma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympVed">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympDiploma">
+              <PropertyRef Name="OlympVedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympDiploma_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="OlympDiploma" Type="Self.OlympDiploma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympDiploma">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympDiploma_SchoolClass">
+          <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="1" />
+          <End Role="OlympDiploma" Type="Self.OlympDiploma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympDiploma">
+              <PropertyRef Name="SchoolClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OlympVed_SchoolClass">
           <End Role="SchoolClass" Type="Self.SchoolClass" Multiplicity="1" />
           <End Role="OlympVed" Type="Self.OlympVed" Multiplicity="*" />
@@ -189,7 +274,9 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PersonInOlympVed_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PersonInOlympVed" Type="Self.PersonInOlympVed" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
@@ -220,7 +307,10 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
         </Function>
         <EntityContainer Name="OlympVseross2016ModelStoreContainer">
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DiplomaLevel" EntityType="Self.DiplomaLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocumentType" EntityType="Self.DocumentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OlympDiploma" EntityType="Self.OlympDiploma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OlympResults" EntityType="Self.OlympResults" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OlympVed" EntityType="Self.OlympVed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonInOlympVed" EntityType="Self.PersonInOlympVed" Schema="dbo" store:Type="Tables" />
@@ -237,6 +327,22 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
     [extRatingList].[TotalMark] AS [TotalMark]
     FROM [dbo].[extRatingList] AS [extRatingList]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_OlympDiploma_DiplomaLevel" Association="Self.FK_OlympDiploma_DiplomaLevel">
+            <End Role="DiplomaLevel" EntitySet="DiplomaLevel" />
+            <End Role="OlympDiploma" EntitySet="OlympDiploma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympDiploma_OlympVed" Association="Self.FK_OlympDiploma_OlympVed">
+            <End Role="OlympVed" EntitySet="OlympVed" />
+            <End Role="OlympDiploma" EntitySet="OlympDiploma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympDiploma_Person" Association="Self.FK_OlympDiploma_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="OlympDiploma" EntitySet="OlympDiploma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympDiploma_SchoolClass" Association="Self.FK_OlympDiploma_SchoolClass">
+            <End Role="SchoolClass" EntitySet="SchoolClass" />
+            <End Role="OlympDiploma" EntitySet="OlympDiploma" />
+          </AssociationSet>
           <AssociationSet Name="FK_OlympVed_SchoolClass" Association="Self.FK_OlympVed_SchoolClass">
             <End Role="SchoolClass" EntitySet="SchoolClass" />
             <End Role="OlympVed" EntitySet="OlympVed" />
@@ -304,6 +410,7 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
           <NavigationProperty Name="SchoolClass" Relationship="OlympVseross2016Model.FK_Person_SchoolClass" FromRole="Person" ToRole="SchoolClass" />
           <NavigationProperty Name="Sex" Relationship="OlympVseross2016Model.FK_Person_Sex" FromRole="Person" ToRole="Sex" />
           <NavigationProperty Name="PersonInOlympVed" Relationship="OlympVseross2016Model.FK_PersonInOlympVed_Person" FromRole="Person" ToRole="PersonInOlympVed" />
+          <NavigationProperty Name="OlympDiploma" Relationship="OlympVseross2016Model.FK_OlympDiploma_Person" FromRole="Person_local" ToRole="OlympDiploma" />
         </EntityType>
         <EntityType Name="PersonInOlympVed">
           <Key>
@@ -379,6 +486,25 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
             <Parameter Name="roleName" Mode="In" Type="String" />
             <Parameter Name="result" Mode="InOut" Type="Boolean" />
           </FunctionImport>
+          <EntitySet Name="DiplomaLevel" EntityType="OlympVseross2016Model.DiplomaLevel" />
+          <EntitySet Name="OlympDiploma" EntityType="OlympVseross2016Model.OlympDiploma" />
+          <EntitySet Name="OlympResults" EntityType="OlympVseross2016Model.OlympResults" />
+          <AssociationSet Name="FK_OlympDiploma_DiplomaLevel" Association="OlympVseross2016Model.FK_OlympDiploma_DiplomaLevel">
+            <End Role="DiplomaLevel" EntitySet="DiplomaLevel" />
+            <End Role="OlympDiploma" EntitySet="OlympDiploma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympDiploma_OlympVed" Association="OlympVseross2016Model.FK_OlympDiploma_OlympVed">
+            <End Role="OlympVed" EntitySet="OlympVed" />
+            <End Role="OlympDiploma" EntitySet="OlympDiploma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympDiploma_Person" Association="OlympVseross2016Model.FK_OlympDiploma_Person">
+            <End Role="Person_local" EntitySet="Person" />
+            <End Role="OlympDiploma" EntitySet="OlympDiploma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OlympDiploma_SchoolClass" Association="OlympVseross2016Model.FK_OlympDiploma_SchoolClass">
+            <End Role="SchoolClass_local" EntitySet="SchoolClass" />
+            <End Role="OlympDiploma" EntitySet="OlympDiploma" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="OlympVed">
           <Key>
@@ -391,6 +517,7 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
           <NavigationProperty Name="PersonInOlympVed" Relationship="OlympVseross2016Model.FK_PersonInOlympVed_OlympVed" FromRole="OlympVed" ToRole="PersonInOlympVed" />
           <Property Name="IsLocked" Type="Boolean" Nullable="false" />
           <Property Name="IsLoad" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="OlympDiploma" Relationship="OlympVseross2016Model.FK_OlympDiploma_OlympVed" FromRole="OlympVed" ToRole="OlympDiploma" />
         </EntityType>
         <EntityType Name="Country_local">
           <Key>
@@ -426,6 +553,8 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
           <NavigationProperty Name="OlympVed" Relationship="OlympVseross2016Model.FK_OlympVed_SchoolClass" FromRole="SchoolClass" ToRole="OlympVed" />
           <NavigationProperty Name="Person" Relationship="OlympVseross2016Model.FK_Person_SchoolClass" FromRole="SchoolClass" ToRole="Person" />
           <Property Name="IntVal" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OlympDiploma" Relationship="OlympVseross2016Model.FK_OlympDiploma_SchoolClass" FromRole="SchoolClass_local" ToRole="OlympDiploma" />
+          <Property Name="PrintDiplomaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sex_local">
           <Key>
@@ -553,6 +682,95 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
           <Property Name="TotalMark" Type="Int32" />
           <Property Name="CryptNumber" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="DiplomaLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OlympDiploma" Relationship="OlympVseross2016Model.FK_OlympDiploma_DiplomaLevel" FromRole="DiplomaLevel" ToRole="OlympDiploma" />
+        </EntityType>
+        <EntityType Name="OlympDiploma">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="OlympSubjectId" Type="Int32" Nullable="false" />
+          <Property Name="OlympVedId" Type="Guid" Nullable="false" />
+          <Property Name="SchoolClassId" Type="Int32" Nullable="false" />
+          <Property Name="TotalSum" Type="Int32" Nullable="false" />
+          <Property Name="Place" Type="Int32" Nullable="false" />
+          <Property Name="DiplomaLevelId" Type="Int32" Nullable="false" />
+          <Property Name="DiplomaRegNum" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DiplomaDate" Type="DateTime" Precision="0" />
+          <Property Name="BlankNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateAuthor" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DiplomaLevel" Relationship="OlympVseross2016Model.FK_OlympDiploma_DiplomaLevel" FromRole="OlympDiploma" ToRole="DiplomaLevel" />
+          <NavigationProperty Name="OlympVed" Relationship="OlympVseross2016Model.FK_OlympDiploma_OlympVed" FromRole="OlympDiploma" ToRole="OlympVed" />
+          <NavigationProperty Name="Person" Relationship="OlympVseross2016Model.FK_OlympDiploma_Person" FromRole="OlympDiploma" ToRole="Person_local" />
+          <NavigationProperty Name="SchoolClass" Relationship="OlympVseross2016Model.FK_OlympDiploma_SchoolClass" FromRole="OlympDiploma" ToRole="SchoolClass_local" />
+          <Property Name="OlympYear" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OlympResults">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="OlympVedId" Type="Guid" Nullable="false" />
+          <Property Name="TotalSum" Type="Int32" Nullable="false" />
+          <Property Name="Place" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_OlympDiploma_DiplomaLevel">
+          <End Type="OlympVseross2016Model.DiplomaLevel" Role="DiplomaLevel" Multiplicity="1" />
+          <End Type="OlympVseross2016Model.OlympDiploma" Role="OlympDiploma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiplomaLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympDiploma">
+              <PropertyRef Name="DiplomaLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympDiploma_OlympVed">
+          <End Type="OlympVseross2016Model.OlympVed" Role="OlympVed" Multiplicity="1" />
+          <End Type="OlympVseross2016Model.OlympDiploma" Role="OlympDiploma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OlympVed">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympDiploma">
+              <PropertyRef Name="OlympVedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympDiploma_Person">
+          <End Type="OlympVseross2016Model.Person_local" Role="Person_local" Multiplicity="1" />
+          <End Type="OlympVseross2016Model.OlympDiploma" Role="OlympDiploma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person_local">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympDiploma">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OlympDiploma_SchoolClass">
+          <End Type="OlympVseross2016Model.SchoolClass_local" Role="SchoolClass_local" Multiplicity="1" />
+          <End Type="OlympVseross2016Model.OlympDiploma" Role="OlympDiploma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolClass_local">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OlympDiploma">
+              <PropertyRef Name="SchoolClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -641,6 +859,7 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
           <EntitySetMapping Name="SchoolClass">
             <EntityTypeMapping TypeName="OlympVseross2016Model.SchoolClass_local">
               <MappingFragment StoreEntitySet="SchoolClass">
+                <ScalarProperty Name="PrintDiplomaName" ColumnName="PrintDiplomaName" />
                 <ScalarProperty Name="IntVal" ColumnName="IntVal" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -667,6 +886,45 @@ warning 6002: The table/view 'OlympVseross2016.dbo.extRatingList' does not have 
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="RoleMember" FunctionName="OlympVseross2016Model.Store.RoleMember" />
+          <EntitySetMapping Name="DiplomaLevel">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.DiplomaLevel">
+              <MappingFragment StoreEntitySet="DiplomaLevel">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OlympDiploma">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.OlympDiploma">
+              <MappingFragment StoreEntitySet="OlympDiploma">
+                <ScalarProperty Name="OlympYear" ColumnName="OlympYear" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateAuthor" ColumnName="CreateAuthor" />
+                <ScalarProperty Name="BlankNumber" ColumnName="BlankNumber" />
+                <ScalarProperty Name="DiplomaDate" ColumnName="DiplomaDate" />
+                <ScalarProperty Name="DiplomaRegNum" ColumnName="DiplomaRegNum" />
+                <ScalarProperty Name="DiplomaLevelId" ColumnName="DiplomaLevelId" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="TotalSum" ColumnName="TotalSum" />
+                <ScalarProperty Name="SchoolClassId" ColumnName="SchoolClassId" />
+                <ScalarProperty Name="OlympVedId" ColumnName="OlympVedId" />
+                <ScalarProperty Name="OlympSubjectId" ColumnName="OlympSubjectId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OlympResults">
+            <EntityTypeMapping TypeName="OlympVseross2016Model.OlympResults">
+              <MappingFragment StoreEntitySet="OlympResults">
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="TotalSum" ColumnName="TotalSum" />
+                <ScalarProperty Name="OlympVedId" ColumnName="OlympVedId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

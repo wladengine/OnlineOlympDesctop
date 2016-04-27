@@ -37,6 +37,9 @@ namespace OnlineOlympDesctop
         public virtual DbSet<SchoolClass_local> SchoolClass { get; set; }
         public virtual DbSet<Sex_local> Sex { get; set; }
         public virtual DbSet<extRatingList> extRatingList { get; set; }
+        public virtual DbSet<DiplomaLevel> DiplomaLevel { get; set; }
+        public virtual DbSet<OlympDiploma> OlympDiploma { get; set; }
+        public virtual DbSet<OlympResults> OlympResults { get; set; }
     
         public virtual int RoleMember(string roleName, ObjectParameter result)
         {

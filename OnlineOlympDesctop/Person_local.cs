@@ -18,6 +18,7 @@ namespace OnlineOlympDesctop
         public Person_local()
         {
             this.PersonInOlympVed = new HashSet<PersonInOlympVed>();
+            this.OlympDiploma = new HashSet<OlympDiploma>();
         }
     
         public System.Guid Id { get; set; }
@@ -44,5 +45,7 @@ namespace OnlineOlympDesctop
         public virtual Sex_local Sex { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonInOlympVed> PersonInOlympVed { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OlympDiploma> OlympDiploma { get; set; }
     }
 }

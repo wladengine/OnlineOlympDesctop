@@ -11,10 +11,11 @@ using System.Windows.Forms;
 
 namespace OnlineOlympDesctop
 {
-    public partial class SelectClassCrypto : Form
+    public partial class SelectDiplomaLevelForm : Form
     {
         public event Action<int> OnOK;
-        public SelectClassCrypto()
+        public event Func<int, bool> OnCheck;
+        public SelectDiplomaLevelForm()
         {
             InitializeComponent();
             this.MdiParent = Util.MainForm;
@@ -25,32 +26,40 @@ namespace OnlineOlympDesctop
         {
             using (OlympVseross2016Entities context = new OlympVseross2016Entities())
             {
-                var src = context.SchoolClass.Select(x => new { x.Id, x.Name })
+                var src = context.DiplomaLevel.Select(x => new { x.Id, x.Name })
                     .ToList()
                     .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name))
                     .ToList();
 
-                ComboServ.FillCombo(cbClass, src, false, false);
+                ComboServ.FillCombo(cbDiplomaLevel, src, false, false);
             }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            int? ClassId = ComboServ.GetComboIdInt(cbClass);
+            int? DiplomaLevelId = ComboServ.GetComboIdInt(cbDiplomaLevel);
+
+            if (!DiplomaLevelId.HasValue)
+            {
+                WinFormsServ.Error("Не указан уровень!");
+                return;
+            }
 
             using (OlympVseross2016Entities context = new OlympVseross2016Entities())
             {
-                int cnt = context.OlympVed.Where(x => x.ClassId == ClassId && x.OlympYear == Util.CampaignYear).Count();
+                bool bCheckResult = true;
+                if (OnCheck != null)
+                    bCheckResult = OnCheck(DiplomaLevelId.Value);
 
-                if (cnt == 0)
+                if (bCheckResult)
                 {
-                    if (OnOK != null && ClassId.HasValue)
-                        OnOK(ClassId.Value);
+                    if (OnOK != null && DiplomaLevelId.HasValue)
+                        OnOK(DiplomaLevelId.Value);
 
                     this.Close();
                 }
                 else
-                    WinFormsServ.Error("Ведомость на указанный класс уже существует!");
+                    WinFormsServ.Error("Ведомость на указанный уровень уже существует!");
             }
         }
     }

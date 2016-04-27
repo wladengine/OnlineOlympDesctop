@@ -269,7 +269,15 @@ namespace OnlineOlympDesctop
         {
             if (Util.IsPasha() || Util.IsOwner())
             {
-                SelectClassCrypto frm = new SelectClassCrypto();
+                SelectClassForm frm = new SelectClassForm();
+                frm.OnCheck += new Func<int, bool>(x => 
+                    {
+                        using (OlympVseross2016Entities context = new OlympVseross2016Entities())
+                        {
+                            int zz = context.OlympVed.Where(z => z.ClassId == x && z.OlympYear == Util.CampaignYear).Count();
+                            return zz == 0;
+                        }
+                    });
                 frm.OnOK += new Action<int>(x => { OlympVedCard p = new OlympVedCard(this, x); p.Show(); });
                 frm.Show();
             }

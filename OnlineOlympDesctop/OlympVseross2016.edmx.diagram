@@ -24,6 +24,13 @@
         <AssociationConnector Association="OlympVseross2016Model.FK_PersonInOlympVed_Person" />
         <AssociationConnector Association="OlympVseross2016Model.FK_PersonInOlympVedMark_PersonInOlympVed" />
         <EntityTypeShape EntityType="OlympVseross2016Model.extRatingList" Width="1.5" PointX="13.75" PointY="0.625" />
+        <EntityTypeShape EntityType="OlympVseross2016Model.DiplomaLevel" Width="1.5" PointX="14.75" PointY="7.375" />
+        <EntityTypeShape EntityType="OlympVseross2016Model.OlympDiploma" Width="1.5" PointX="17" PointY="1" />
+        <EntityTypeShape EntityType="OlympVseross2016Model.OlympResults" Width="1.5" PointX="0.75" PointY="6.75" />
+        <AssociationConnector Association="OlympVseross2016Model.FK_OlympDiploma_DiplomaLevel" />
+        <AssociationConnector Association="OlympVseross2016Model.FK_OlympDiploma_OlympVed" />
+        <AssociationConnector Association="OlympVseross2016Model.FK_OlympDiploma_Person" />
+        <AssociationConnector Association="OlympVseross2016Model.FK_OlympDiploma_SchoolClass" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,24 +12,17 @@ namespace OnlineOlympDesctop
     using System;
     using System.Collections.Generic;
     
-    public partial class OlympVed
+    public partial class DiplomaLevel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OlympVed()
+        public DiplomaLevel()
         {
-            this.PersonInOlympVed = new HashSet<PersonInOlympVed>();
             this.OlympDiploma = new HashSet<OlympDiploma>();
         }
     
-        public System.Guid Id { get; set; }
-        public int OlympYear { get; set; }
-        public int ClassId { get; set; }
-        public bool IsLocked { get; set; }
-        public bool IsLoad { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     
-        public virtual SchoolClass_local SchoolClass { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PersonInOlympVed> PersonInOlympVed { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OlympDiploma> OlympDiploma { get; set; }
     }

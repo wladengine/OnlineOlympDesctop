@@ -35,9 +35,12 @@
             this.smiParticipant = new System.Windows.Forms.ToolStripMenuItem();
             this.smiVed = new System.Windows.Forms.ToolStripMenuItem();
             this.smiOlympVedList = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiDiplomaList = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiSetDiploma = new System.Windows.Forms.ToolStripMenuItem();
             this.smiCrypto = new System.Windows.Forms.ToolStripMenuItem();
             this.smiSelectVed = new System.Windows.Forms.ToolStripMenuItem();
             this.smiVedAppeal = new System.Windows.Forms.ToolStripMenuItem();
+            this.smiLoadFromExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smiPrintList = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
@@ -82,7 +85,9 @@
             // smiVed
             // 
             this.smiVed.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.smiOlympVedList});
+            this.smiOlympVedList,
+            this.smiSetDiploma,
+            this.smiDiplomaList});
             this.smiVed.Name = "smiVed";
             this.smiVed.Size = new System.Drawing.Size(79, 20);
             this.smiVed.Text = "Ведомости";
@@ -91,15 +96,30 @@
             // smiOlympVedList
             // 
             this.smiOlympVedList.Name = "smiOlympVedList";
-            this.smiOlympVedList.Size = new System.Drawing.Size(183, 22);
+            this.smiOlympVedList.Size = new System.Drawing.Size(199, 22);
             this.smiOlympVedList.Text = "Список ведомостей";
             this.smiOlympVedList.Click += new System.EventHandler(this.smiOlympVedList_Click);
+            // 
+            // smiDiplomaList
+            // 
+            this.smiDiplomaList.Name = "smiDiplomaList";
+            this.smiDiplomaList.Size = new System.Drawing.Size(199, 22);
+            this.smiDiplomaList.Text = "Печать дипломов";
+            this.smiDiplomaList.Click += new System.EventHandler(this.smiDiplomaList_Click);
+            // 
+            // smiSetDiploma
+            // 
+            this.smiSetDiploma.Name = "smiSetDiploma";
+            this.smiSetDiploma.Size = new System.Drawing.Size(199, 22);
+            this.smiSetDiploma.Text = "Назначение дипломов";
+            this.smiSetDiploma.Click += new System.EventHandler(this.smiSetDiploma_Click);
             // 
             // smiCrypto
             // 
             this.smiCrypto.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.smiSelectVed,
-            this.smiVedAppeal});
+            this.smiVedAppeal,
+            this.smiLoadFromExcel});
             this.smiCrypto.Name = "smiCrypto";
             this.smiCrypto.Size = new System.Drawing.Size(92, 20);
             this.smiCrypto.Text = "Шифрование";
@@ -118,6 +138,13 @@
             this.smiVedAppeal.Size = new System.Drawing.Size(218, 22);
             this.smiVedAppeal.Text = "Ведомость для апелляции";
             this.smiVedAppeal.Click += new System.EventHandler(this.smiVedAppeal_Click);
+            // 
+            // smiLoadFromExcel
+            // 
+            this.smiLoadFromExcel.Name = "smiLoadFromExcel";
+            this.smiLoadFromExcel.Size = new System.Drawing.Size(218, 22);
+            this.smiLoadFromExcel.Text = "LoadFromExcel";
+            this.smiLoadFromExcel.Click += new System.EventHandler(this.smiLoadFromExcel_Click);
             // 
             // печатьToolStripMenuItem
             // 
@@ -166,6 +193,9 @@
         private System.Windows.Forms.ToolStripMenuItem smiVedAppeal;
         private System.Windows.Forms.ToolStripMenuItem печатьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem smiPrintList;
+        private System.Windows.Forms.ToolStripMenuItem smiLoadFromExcel;
+        private System.Windows.Forms.ToolStripMenuItem smiDiplomaList;
+        private System.Windows.Forms.ToolStripMenuItem smiSetDiploma;
     }
 }
 

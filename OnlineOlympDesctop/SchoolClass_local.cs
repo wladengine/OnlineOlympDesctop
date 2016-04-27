@@ -19,15 +19,19 @@ namespace OnlineOlympDesctop
         {
             this.OlympVed = new HashSet<OlympVed>();
             this.Person = new HashSet<Person_local>();
+            this.OlympDiploma = new HashSet<OlympDiploma>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public int IntVal { get; set; }
+        public string PrintDiplomaName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OlympVed> OlympVed { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Person_local> Person { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OlympDiploma> OlympDiploma { get; set; }
     }
 }

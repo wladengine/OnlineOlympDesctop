@@ -70,5 +70,28 @@ namespace OnlineOlympDesctop
         {
             new ParticipantPrint().Show();
         }
+
+        private void smiLoadFromExcel_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Excel 2007|*.xlsx";
+            var dr = ofd.ShowDialog();
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                var frm = new SelectClassForm();
+                frm.OnOK += (x) => { PacketImporter.ImportMarksFromExcel(ofd.FileName, x); };
+                frm.Show();
+            }
+        }
+
+        private void smiDiplomaList_Click(object sender, EventArgs e)
+        {
+            new PrintDiplomaList().Show();
+        }
+
+        private void smiSetDiploma_Click(object sender, EventArgs e)
+        {
+            new SetDiplomaList().Show();
+        }
     }
 }

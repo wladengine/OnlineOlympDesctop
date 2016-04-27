@@ -1,6 +1,6 @@
 ﻿namespace OnlineOlympDesctop
 {
-    partial class SelectClassCrypto
+    partial class FormSetDiplomaDate
     {
         /// <summary>
         /// Required designer variable.
@@ -28,36 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cbClass = new System.Windows.Forms.ComboBox();
+            this.dtp = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // cbClass
+            // dtp
             // 
-            this.cbClass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbClass.FormattingEnabled = true;
-            this.cbClass.Location = new System.Drawing.Point(12, 26);
-            this.cbClass.Name = "cbClass";
-            this.cbClass.Size = new System.Drawing.Size(440, 21);
-            this.cbClass.TabIndex = 0;
+            this.dtp.Location = new System.Drawing.Point(24, 25);
+            this.dtp.Name = "dtp";
+            this.dtp.Size = new System.Drawing.Size(143, 20);
+            this.dtp.TabIndex = 0;
+            this.dtp.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dtp_KeyUp);
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(204, 9);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 13);
+            this.label1.Size = new System.Drawing.Size(164, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Выберите класс";
+            this.label1.Text = "Укажите дату выдачи диплома";
             // 
             // btnOK
             // 
-            this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnOK.Location = new System.Drawing.Point(207, 53);
+            this.btnOK.Location = new System.Drawing.Point(55, 51);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 2;
@@ -65,17 +60,21 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // SelectClassCrypto
+            // FormSetDiplomaDate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 90);
+            this.ClientSize = new System.Drawing.Size(193, 88);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cbClass);
-            this.Name = "SelectClassCrypto";
+            this.Controls.Add(this.dtp);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(209, 126);
+            this.MinimizeBox = false;
+            this.Name = "FormSetDiplomaDate";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Выбор класса";
+            this.Text = "Задание даты выдачи";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -83,7 +82,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox cbClass;
+        private System.Windows.Forms.DateTimePicker dtp;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnOK;
     }

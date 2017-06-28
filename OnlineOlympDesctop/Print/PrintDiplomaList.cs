@@ -17,15 +17,19 @@ namespace OnlineOlympDesctop
         {
             get { return ComboServ.GetComboIdInt(cbClass); }
         }
+        private int? DiplomaLevelId
+        {
+            get { return ComboServ.GetComboIdInt(cbDiplomaLevel); }
+        }
 
         public PrintDiplomaList()
         {
             InitializeComponent();
             this.MdiParent = Util.MainForm;
-            FillComboClass();
+            FillCombos();
         }
 
-        private void FillComboClass()
+        private void FillCombos()
         {
             using (OlympVseross2016Entities context = new OlympVseross2016Entities())
             {
@@ -33,6 +37,11 @@ namespace OnlineOlympDesctop
                     .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name)).ToList();
 
                 ComboServ.FillCombo(cbClass, src, false, false);
+
+                src = context.DiplomaLevel.Select(x => new { x.Id, x.Name }).ToList()
+                    .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name)).ToList();
+
+                ComboServ.FillCombo(cbDiplomaLevel, src, false, false);
             }
         }
 
@@ -84,6 +93,7 @@ namespace OnlineOlympDesctop
                     (from dipl in context.OlympDiploma
                      join pers in context.Person on dipl.PersonId equals pers.Id
                      where (SchoolClassId.HasValue ? dipl.SchoolClassId == SchoolClassId : true)
+                     && dipl.DiplomaLevelId == DiplomaLevelId
                      select new
                      {
                          pers.Id,
@@ -118,6 +128,10 @@ namespace OnlineOlympDesctop
         }
 
         private void cbClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillGrid();
+        }
+        private void cbDiplomaLevel_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillGrid();
         }

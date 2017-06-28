@@ -50,6 +50,7 @@ namespace OnlineOlympDesctop
                 var persData =
                     (from dipl in context.OlympDiploma
                      join pers in context.Person on dipl.PersonId equals pers.Id
+                     where pers.Id == PersonId
                      select new
                      {
                          pers.Surname,
@@ -83,6 +84,61 @@ namespace OnlineOlympDesctop
 
                 acrFlds.SetField("RegNum", persData.DiplomaRegNum);
                 acrFlds.SetField("DiplomaDate", persData.DiplomaDate.Value.ToString("d MMMM yyyy", System.Globalization.CultureInfo.GetCultureInfo("ru-RU")));
+
+                pdfStm.FormFlattening = true;
+                pdfStm.Close();
+                pdfRd.Close();
+            }
+
+            return ms.ToArray();
+        }
+        public static byte[] PrintComplimentMentionPDF(Guid PersonId)
+        {
+            MemoryStream ms = new MemoryStream();
+            string dotName = "VserossComplimentMention_2016.pdf";
+
+            PdfReader pdfRd = GetAcrobatFileFromTemplate(Util.dirTemplates + "\\" + dotName);
+            PdfStamper pdfStm = GetPdfStamper(ref pdfRd, ref ms, false);
+            AcroFields acrFlds = pdfStm.AcroFields;
+
+            using (OlympVseross2016Entities context = new OlympVseross2016Entities())
+            {
+                var persData =
+                    (from dipl in context.OlympDiploma
+                     join pers in context.Person on dipl.PersonId equals pers.Id
+                     select new
+                     {
+                         pers.Surname,
+                         pers.Name,
+                         pers.SecondName,
+                         dipl.DiplomaRegNum,
+                         dipl.DiplomaDate,
+                         SchoolClass = pers.SchoolClass.PrintDiplomaName,
+                         pers.SchoolName,
+                     }).FirstOrDefault();
+
+                //------check persData---------
+                bool bChecked = true;
+                if (!persData.DiplomaDate.HasValue)
+                {
+                    WinFormsServ.Error("Не указана дата выдачи диплома!");
+                    bChecked = false;
+                }
+                if (string.IsNullOrEmpty(persData.DiplomaRegNum))
+                {
+                    WinFormsServ.Error("Не указана рег номер диплома!");
+                    bChecked = false;
+                }
+                if (!bChecked)
+                    throw new Exception("Не удалось распечатать диплом");
+                //-----------------------------
+
+                acrFlds.SetField("FIO", (persData.Surname + " " ?? "") + (persData.Name ?? "") + (" " + persData.SecondName ?? ""));
+                acrFlds.SetField("SchoolClass", persData.SchoolClass);
+                acrFlds.SetField("SchoolName", persData.SchoolName);
+
+                acrFlds.SetField("RegNum", persData.DiplomaRegNum);
+                acrFlds.SetField("DiplomaDate", persData.DiplomaDate.Value.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.GetCultureInfo("ru-RU")));
 
                 pdfStm.FormFlattening = true;
                 pdfStm.Close();

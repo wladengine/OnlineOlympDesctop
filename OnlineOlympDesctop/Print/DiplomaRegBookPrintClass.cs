@@ -31,6 +31,7 @@ namespace OnlineOlympDesctop
                          join Pers in context.Person on Dipl.PersonId equals Pers.Id
                          where Dipl.OlympYear == Util.CampaignYear
                          && Ved.PersonId == Pers.Id
+                         && Dipl.DiplomaLevel.Id < 3
                          select new
                          {
                              Pers.Surname,

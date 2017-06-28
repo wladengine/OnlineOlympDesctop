@@ -36,6 +36,8 @@
             this.btnSetRegNum = new System.Windows.Forms.Button();
             this.btnSetSchoolName = new System.Windows.Forms.Button();
             this.btnSetDiplomaBlankNumber = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cbDiplomaLevel = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,11 +130,32 @@
             this.btnSetDiplomaBlankNumber.UseVisualStyleBackColor = true;
             this.btnSetDiplomaBlankNumber.Click += new System.EventHandler(this.btnSetDiplomaBlankNumber_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(139, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Уровень";
+            // 
+            // cbDiplomaLevel
+            // 
+            this.cbDiplomaLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDiplomaLevel.FormattingEnabled = true;
+            this.cbDiplomaLevel.Location = new System.Drawing.Point(139, 27);
+            this.cbDiplomaLevel.Name = "cbDiplomaLevel";
+            this.cbDiplomaLevel.Size = new System.Drawing.Size(225, 21);
+            this.cbDiplomaLevel.TabIndex = 8;
+            this.cbDiplomaLevel.SelectedIndexChanged += new System.EventHandler(this.cbDiplomaLevel_SelectedIndexChanged);
+            // 
             // PrintDiplomaList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(841, 467);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cbDiplomaLevel);
             this.Controls.Add(this.btnSetDiplomaBlankNumber);
             this.Controls.Add(this.btnSetSchoolName);
             this.Controls.Add(this.btnSetRegNum);
@@ -159,5 +182,7 @@
         private System.Windows.Forms.Button btnSetRegNum;
         private System.Windows.Forms.Button btnSetSchoolName;
         private System.Windows.Forms.Button btnSetDiplomaBlankNumber;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cbDiplomaLevel;
     }
 }
